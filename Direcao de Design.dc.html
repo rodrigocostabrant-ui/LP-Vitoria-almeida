@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E9E3DD;color:#3B2A24;-webkit-font-smoothing:antialiased}
+a{color:#5C3A40;text-decoration:none}
+a:hover{color:#3B2A24}
+</style>
+</helmet>
+<div style="font-family:'Jost',sans-serif;font-weight:300;padding:64px 72px 96px;display:flex;flex-direction:column;gap:72px;width:1900px">
+
+  <header style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-bottom:1px solid rgba(59,42,36,.2);padding-bottom:32px">
+    <div style="display:flex;align-items:center;gap:22px">
+      <span style="font-family:'Bodoni Moda',serif;font-size:64px;line-height:1">VA.</span>
+      <div style="display:flex;flex-direction:column;gap:6px;border-left:1px solid rgba(59,42,36,.25);padding-left:22px">
+        <span style="font-size:11px;letter-spacing:.3em;font-weight:500">DIREÇÃO DE DESIGN — LANDING PAGE</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#6E5A52">Motion, scroll, 3D, microinterações e comportamento mobile</span>
+      </div>
+    </div>
+    <a href="Landing Dra Vitoria.dc.html" style="font-size:11px;letter-spacing:.26em;font-weight:500;border-bottom:1px solid currentColor;padding-bottom:4px">ABRIR LANDING PAGE COMPLETA →</a>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;align-items:baseline;gap:18px"><span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#5C3A40">A</span><span style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300">Mobile — experiência própria</span><span style="font-size:13px;color:#6E5A52">Viewports reais a 390 × 844 (role dentro de cada tela)</span></div>
+    <div style="display:flex;gap:36px;flex-wrap:wrap">
+      <sc-for list="{{ phones }}" as="f" hint-placeholder-count="4">
+        <figure style="margin:0;display:flex;flex-direction:column;gap:14px">
+          <div style="width:414px;height:868px;padding:12px;background:#111111;border-radius:52px;box-shadow:0 40px 80px -40px rgba(59,42,36,.5)">
+            <iframe src="{{ f.src }}" title="{{ f.label }}" loading="lazy" style="width:390px;height:844px;border:0;border-radius:40px;background:#F5F2EE;display:block"></iframe>
+          </div>
+          <figcaption style="display:flex;flex-direction:column;gap:4px;max-width:414px"><span style="font-size:10px;letter-spacing:.28em;font-weight:500">{{ f.label }}</span><span style="font-size:13px;line-height:1.55;color:#6E5A52">{{ f.note }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px">
+    <sc-for list="{{ specs }}" as="s" hint-placeholder-count="6">
+      <article style="background:#F5F2EE;padding:36px 36px 32px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;align-items:baseline;gap:14px"><span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#5C3A40">{{ s.k }}</span><span style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1">{{ s.title }}</span></div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:150px 1fr;gap:18px;padding:12px 0;border-top:1px solid rgba(59,42,36,.14);font-size:13px;line-height:1.55"><span style="font-size:10px;letter-spacing:.22em;font-weight:500;color:#6E5A52;padding-top:2px">{{ r.a }}</span><span>{{ r.b }}</span></div>
+          </sc-for>
+        </div>
+      </article>
+    </sc-for>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const f = 'Landing Dra Vitoria.dc.html';
+    return {
+      phones: [
+        { src: f + '#topo', label: 'HERO', note: 'Retrato em 60% da altura, bloco nude e “VA.” em camadas; headline sobrepõe a foto; CTA em largura total (64px de altura).' },
+        { src: f + '#proc-01', label: 'STACK 1 — PROCEDIMENTOS', note: 'Imagem no topo, texto abaixo. Cada painel é sticky a 100svh; o anterior recua (scale 0.93 + sombra).' },
+        { src: f + '#resultados', label: 'STACK 2 — ANTES ↔ DEPOIS', note: 'Cartões empilhados com 24px de respiro; divisor arrastável por toque (alvo de 72px), revelação automática no scroll.' },
+        { src: f + '#agendar', label: 'CTA FINAL', note: 'Fundo café, assinatura VA. Barra fixa “Agendar avaliação” aparece após a hero e some ao chegar aqui.' }
+      ],
+      specs: [
+        { k: 'B', title: 'Parallax — camadas', rows: [
+          { a: 'FOTOGRAFIA', b: '0.8–0.85× · retrato hero, autoridade, posts' },
+          { a: 'TIPOGRAFIA', b: '1× · headlines entram por máscara de linha (translateY 108% → 0, 1.6s)' },
+          { a: 'DECORATIVO', b: '0.4–0.6× · bloco nude, círculos finos, linhas' },
+          { a: 'BACKGROUND', b: '0.2–0.3× · monograma “VA.” e “Vitória” gigantes' },
+          { a: 'MOUSE', b: 'Profundidade ±4–16px por camada, easing 0.05/frame' },
+          { a: 'FOTO HERO', b: 'Ken Burns lento: scale 1.045 ± 0.02, ciclo ~40s' } ] },
+        { k: 'C', title: 'Scroll stack', rows: [
+          { a: 'PROCEDIMENTOS', b: '5 painéis sticky 100vh. Próximo entra por cima; anterior: scale 1 → 0.93, translateY −2.5vh, sombra 0 → 50%' },
+          { a: 'IMAGEM', b: 'clip-path inset(16% 0 0 0) → 0 + scale 1.16 → 1 na entrada' },
+          { a: 'TIPOGRAFIA', b: 'Número desliza 80px; título ganha tracking +0.05em → −0.015em' },
+          { a: 'RESULTADOS', b: '4 cartões sticky com offsets 84/108/132/156px; anterior recua scale 0.955' },
+          { a: 'REVELAÇÃO', b: 'Divisor começa em 100% (só ANTES) e desliza até 50% conforme o cartão assenta' } ] },
+        { k: 'D', title: 'Microinterações', rows: [
+          { a: 'BOTÃO PRIMÁRIO', b: 'Café → vinho; tracking .28em → .32em; traço-seta 28px se afasta (gap 18 → 26px), 700ms' },
+          { a: 'LINKS', b: 'Sublinhado 1px desenhado da esquerda (background-size 0 → 100%), 600ms' },
+          { a: 'CURSOR', b: 'Ponto 10px em mix-blend difference; cresce p/ 44px em links e 78px com rótulo (“Agendar”, “Arraste”)' },
+          { a: 'IMAGENS', b: 'Entram por clip-path de baixo para cima; hover: scale 0.97 (recuo, nunca zoom agressivo)' },
+          { a: 'STAGGER', b: 'Linhas e itens com 80–140ms de atraso; easing único cubic-bezier(.16,1,.3,1)' },
+          { a: 'FRASE', b: '“Cada rosto…” acende palavra a palavra (opacidade 0.13 → 1) ligada ao scroll' } ] },
+        { k: 'E', title: 'Experiência 3D', rows: [
+          { a: 'CONCEITO', b: 'Instalação escultórica: superfície orgânica tom nude, anel fino café e ponto vinho' },
+          { a: 'SEQUÊNCIA', b: 'Sticky 380vh — Forma (orgânica) → Proporção (alongamento) → Equilíbrio (anel nivela) → Precisão (quase esfera)' },
+          { a: 'LUZ', b: 'Hemisférica quente + key suave + rim nude; material físico com sheen, sem brilho metálico' },
+          { a: 'CURSOR', b: 'Rotação ±0.6 rad seguindo o mouse, amortecida' },
+          { a: 'TECNOLOGIA', b: 'Three.js carregado só ao se aproximar da seção; render pausado fora da tela' } ] },
+        { k: 'F', title: 'Performance', rows: [
+          { a: 'IMAGENS', b: 'AVIF/WebP, srcset 640/1280/2000, lazy abaixo da dobra; hero com preload e LQIP' },
+          { a: 'WEBGL', b: 'Lazy import; pixel ratio ≤ 1.75 (≤ 1.5 mobile); malha 150 → 80 segmentos em aparelhos fracos' },
+          { a: 'FALLBACK', b: 'Sem WebGL ou falha de rede → esfera estática em CSS' },
+          { a: 'MOTION', b: 'prefers-reduced-motion desativa parallax, reveals e Ken Burns; stacks seguem funcionais' },
+          { a: 'LOOP', b: 'Um único rAF; apenas transform/opacity/clip-path; elementos fora da tela ignorados' } ] },
+        { k: 'G', title: 'Regras mobile', rows: [
+          { a: 'BREAKPOINT', b: '< 820px: hero própria, menu em tela cheia com links em serifa 46px' },
+          { a: 'TOQUE', b: 'Alvos ≥ 48px; divisor antes/depois com área de 72px e pan-y livre' },
+          { a: 'INTERAÇÕES', b: 'Sem cursor e sem parallax de mouse; parallax de scroll mantido' },
+          { a: 'CONVERSÃO', b: 'Barra fixa de WhatsApp após a hero; oculta no CTA final' },
+          { a: 'DESENVOLVIMENTO', b: 'Produção: GSAP ScrollTrigger para stacks/pins, Lenis para smooth scroll' } ] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

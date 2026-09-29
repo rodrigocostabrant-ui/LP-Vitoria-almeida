@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./va-sculpture.js"></script>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#F5F2EE;color:#3B2A24;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+::selection{background:#D9C3B5;color:#3B2A24}
+:focus-visible{outline:1px solid #5C3A40;outline-offset:4px}
+</style>
+</helmet>
+
+<div data-va-root="" style="font-family:'Jost',sans-serif;font-weight:300;background:#F5F2EE;color:#3B2A24;overflow-x:clip;position:relative">
+
+<!-- NAV -->
+<header data-nav="" style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px clamp(20px,4vw,56px);border-bottom:1px solid transparent;transition:background .7s cubic-bezier(.16,1,.3,1),padding .7s cubic-bezier(.16,1,.3,1),border-color .7s">
+  <a href="#topo" aria-label="Dra. Vitória Almeida — início" style="display:flex;align-items:center;gap:14px;color:#3B2A24">
+    <span style="font-family:'Bodoni Moda',serif;font-size:30px;line-height:1;letter-spacing:-.02em;font-weight:400">VA.</span>
+    <span style="display:flex;flex-direction:column;gap:4px;white-space:nowrap;border-left:1px solid rgba(59,42,36,.25);padding-left:14px">
+      <span style="font-size:10px;letter-spacing:.26em;font-weight:500">DRA. VITÓRIA ALMEIDA</span>
+      <span style="font-size:9px;letter-spacing:.26em;color:#6E5A52;font-weight:400">HARMONIZAÇÃO OROFACIAL</span>
+    </span>
+  </a>
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex;white-space:nowrap;gap:clamp(20px,2.6vw,40px);font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:400">
+      <a href="#sobre" style="padding-bottom:4px;background-image:linear-gradient(#3B2A24,#3B2A24);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:100% 1px">A Dra.</a>
+      <a href="#procedimentos" style="padding-bottom:4px;background-image:linear-gradient(#3B2A24,#3B2A24);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:100% 1px">Procedimentos</a>
+      <a href="#resultados" style="padding-bottom:4px;background-image:linear-gradient(#3B2A24,#3B2A24);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:100% 1px">Resultados</a>
+      <a href="#jornada" style="padding-bottom:4px;background-image:linear-gradient(#3B2A24,#3B2A24);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:100% 1px">Jornada</a>
+    </nav>
+    <a href="{{ wa }}" target="{{ waTarget }}" rel="noopener" data-cursor="WhatsApp" style="display:inline-flex;white-space:nowrap;align-items:center;gap:14px;padding:14px 20px;border:1px solid #3B2A24;color:#3B2A24;font-size:10px;letter-spacing:.26em;font-weight:500;text-transform:uppercase;transition:background .6s cubic-bezier(.16,1,.3,1),color .6s,letter-spacing .6s cubic-bezier(.16,1,.3,1)" style-hover="background:#3B2A24;color:#F5F2EE;letter-spacing:.3em">Agendar avaliação</a>
+  </sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ openMenu }}" aria-label="Abrir menu" style="appearance:none;background:none;border:0;padding:0;width:48px;height:48px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;cursor:pointer">
+      <span style="display:block;width:28px;height:1px;background:#3B2A24"></span>
+      <span style="display:block;width:18px;height:1px;background:#3B2A24"></span>
+    </button>
+  </sc-if>
+</header>
+
+<!-- MOBILE MENU -->
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:60;background:#F5F2EE;display:flex;flex-direction:column;padding:24px 20px 32px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-family:'Bodoni Moda',serif;font-size:30px;line-height:1">VA.</span>
+      <button onClick="{{ closeMenu }}" aria-label="Fechar menu" style="appearance:none;background:none;border:0;width:48px;height:48px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.26em;color:#3B2A24;cursor:pointer">FECHAR</button>
+    </div>
+    <nav style="margin-top:auto;display:flex;flex-direction:column;gap:6px;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:46px;line-height:1.15">
+      <a href="#sobre" onClick="{{ closeMenu }}" style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;color:#6E5A52">01</span>A Dra. Vitória</a>
+      <a href="#procedimentos" onClick="{{ closeMenu }}" style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;color:#6E5A52">02</span>Procedimentos</a>
+      <a href="#resultados" onClick="{{ closeMenu }}" style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;color:#6E5A52">03</span>Resultados</a>
+      <a href="#jornada" onClick="{{ closeMenu }}" style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;color:#6E5A52">04</span><em>Jornada</em></a>
+    </nav>
+    <a href="{{ wa }}" target="{{ waTarget }}" rel="noopener" onClick="{{ closeMenu }}" style="margin-top:48px;display:flex;justify-content:space-between;align-items:center;padding:22px 24px;background:#3B2A24;color:#F5F2EE;font-size:11px;letter-spacing:.28em;font-weight:500;text-transform:uppercase">Agendar avaliação <span style="display:block;width:28px;height:1px;background:#F5F2EE"></span></a>
+    <div style="margin-top:20px;font-size:10px;letter-spacing:.24em;color:#6E5A52">CRO 65679 · BELO HORIZONTE · BARBACENA</div>
+  </div>
+</sc-if>
+
+<!-- ============ HERO — DESKTOP ============ -->
+<sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+<section id="topo" data-screen-label="01 Hero" style="position:relative;height:100vh;min-height:720px;overflow:hidden;background:#F5F2EE">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div data-speed="0.3" data-depth="-10" style="position:absolute;right:-6vw;top:4vh;font-family:'Bodoni Moda',serif;font-size:50vw;line-height:.8;letter-spacing:-.05em;color:#EDE5DE;white-space:nowrap">VA.</div>
+  </div>
+
+  <div style="position:absolute;right:9vw;top:13vh;bottom:0;width:min(36vw,600px)">
+    <div style="position:absolute;inset:0;pointer-events:none">
+      <div data-speed="0.55" data-depth="-16" style="position:absolute;left:-8vw;top:16%;width:46%;height:60%;background:#D9C3B5"></div>
+    </div>
+    <div style="position:absolute;inset:0">
+      <div data-speed="0.85" data-depth="8" style="position:absolute;inset:0">
+        <div data-reveal="clip" data-dur="2000" data-delay="150" style="position:absolute;inset:0;overflow:hidden;background:#E6D8CE">
+          <div data-kenburns="" style="position:absolute;inset:-3%">
+            <image-slot id="hero-retrato" shape="rect" placeholder="Retrato vertical da Dra. Vitória — luz suave, fundo neutro"></image-slot>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span style="position:absolute;left:-22px;top:-22px;width:13px;height:13px;pointer-events:none"><span style="position:absolute;left:6px;top:0;width:1px;height:13px;background:#3B2A24"></span><span style="position:absolute;top:6px;left:0;height:1px;width:13px;background:#3B2A24"></span></span>
+    <span style="position:absolute;right:-22px;top:-22px;width:13px;height:13px;pointer-events:none"><span style="position:absolute;left:6px;top:0;width:1px;height:13px;background:#3B2A24"></span><span style="position:absolute;top:6px;left:0;height:1px;width:13px;background:#3B2A24"></span></span>
+    <div data-reveal="fade" data-delay="1500" style="position:absolute;right:calc(100% + 24px);bottom:11vh;display:flex;align-items:center;gap:18px;white-space:nowrap;pointer-events:none">
+      <div style="text-align:right;display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:10px;letter-spacing:.3em;font-weight:500">DRA. VITÓRIA ALMEIDA</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:#6E5A52;font-weight:400">Cirurgiã-Dentista · Harmonização Orofacial</span>
+      </div>
+      <span style="display:block;width:56px;height:1px;background:#3B2A24"></span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:clamp(20px,4.4vw,80px);top:20vh;z-index:3;pointer-events:none">
+    <div data-reveal="fade" data-delay="300" style="display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.32em;font-weight:500;margin-bottom:3.4vh"><span style="display:block;width:32px;height:1px;background:#3B2A24"></span>HARMONIZAÇÃO OROFACIAL · ODONTOLOGIA ESTÉTICA</div>
+    <h1 data-depth="4" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(64px,7.6vw,146px);line-height:.9;letter-spacing:-.018em;color:#3B2A24">
+      <span style="display:block;overflow:hidden;padding:0 .1em .06em 0"><span data-reveal="line" data-delay="350" data-dur="1600" style="display:block">Harmonização</span></span>
+      <span style="display:block;overflow:hidden;padding:0 .1em .06em 0"><span data-reveal="line" data-delay="480" data-dur="1600" style="display:block">que valoriza</span></span>
+      <span style="display:block;overflow:hidden;padding:0 .12em .1em 0;margin-left:11vw"><span data-reveal="line" data-delay="610" data-dur="1600" style="display:block;font-style:italic;color:#5C3A40">a sua essência.</span></span>
+    </h1>
+  </div>
+
+  <div style="position:absolute;left:clamp(20px,4.4vw,80px);bottom:8vh;z-index:3;display:flex;flex-direction:column;gap:30px;max-width:360px">
+    <p data-reveal="up" data-delay="1000" style="margin:0;font-size:17px;line-height:1.65;color:#3B2A24;text-wrap:pretty">Resultados naturais, planejamento individual e técnica para realçar o que já existe em você.</p>
+    <div data-reveal="up" data-delay="1150" style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+      <a href="{{ wa }}" target="{{ waTarget }}" rel="noopener" data-cursor="Agendar" style="display:inline-flex;align-items:center;gap:18px;padding:21px 30px 21px 34px;background:#3B2A24;color:#F5F2EE;font-size:11px;letter-spacing:.28em;font-weight:500;text-transform:uppercase;transition:background .7s cubic-bezier(.16,1,.3,1),letter-spacing .7s cubic-bezier(.16,1,.3,1),gap .7s cubic-bezier(.16,1,.3,1)" style-hover="background:#5C3A40;color:#F5F2EE;letter-spacing:.32em;gap:26px">Agendar avaliação <span style="display:block;width:28px;height:1px;background:currentColor"></span></a>
+      <a href="#sobre" style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:400;padding-bottom:5px;background-image:linear-gradient(#3B2A24,#3B2A24);background-repeat:no-repeat;background-position:100% 100%;background-size:100% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:35% 1px">Conheça a Dra.</a>
+    </div>
+  </div>
+
+  <div data-reveal="fade" data-delay="1600" style="position:absolute;right:clamp(16px,3vw,48px);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:10px;letter-spacing:.42em;font-weight:500;color:#3B2A24">BELEZA · PRECISÃO · NATURALIDADE</div>
+  <div data-reveal="fade" data-delay="1800" style="position:absolute;right:clamp(16px,3vw,48px);bottom:4vh;display:flex;flex-direction:column;align-items:center;gap:12px;font-size:9px;letter-spacing:.3em">
+    <span style="writing-mode:vertical-rl">ROLE</span>
+    <span style="position:relative;display:block;width:1px;height:56px;background:rgba(59,42,36,.2);overflow:hidden"><span data-scrollcue="" style="position:absolute;left:0;top:0;width:1px;height:100%;background:#3B2A24"></span></span>
+  </div>
+</section>
+</sc-if>
+
+<!-- ============ HERO — MOBILE ============ -->
+<sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+<section id="topo" data-screen-label="01 Hero" style="position:relative;min-height:100svh;padding:96px 0 44px;overflow:hidden;background:#F5F2EE">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div data-speed="0.3" style="position:absolute;left:-8vw;top:64px;font-family:'Bodoni Moda',serif;font-size:82vw;line-height:.8;letter-spacing:-.05em;color:#EDE5DE;white-space:nowrap">VA.</div>
+  </div>
+  <div style="position:relative;margin-left:16vw;height:60svh">
+    <div style="position:absolute;inset:0;pointer-events:none"><div data-speed="0.55" style="position:absolute;left:-10vw;top:10%;width:42%;height:74%;background:#D9C3B5"></div></div>
+    <div style="position:absolute;inset:0">
+      <div data-speed="0.85" style="position:absolute;inset:0">
+        <div data-reveal="clip" data-dur="1800" style="position:absolute;inset:0;overflow:hidden;background:#E6D8CE">
+          <div data-kenburns="" style="position:absolute;inset:-3%"><image-slot id="hero-retrato" shape="rect" placeholder="Retrato vertical da Dra. Vitória"></image-slot></div>
+        </div>
+      </div>
+    </div>
+    <div data-reveal="fade" data-delay="1200" style="position:absolute;left:-12vw;bottom:14%;writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;letter-spacing:.36em;font-weight:500">CRO 65679</div>
+  </div>
+  <div style="position:relative;z-index:2;padding:0 20px;margin-top:-58px;display:flex;flex-direction:column;gap:22px">
+    <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:13.4vw;line-height:.92;letter-spacing:-.015em">
+      <span style="display:block;overflow:hidden;padding:0 .1em .06em 0"><span data-reveal="line" data-delay="300" style="display:block">Harmonização</span></span>
+      <span style="display:block;overflow:hidden;padding:0 .1em .06em 0"><span data-reveal="line" data-delay="420" style="display:block">que valoriza</span></span>
+      <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="540" style="display:block;font-style:italic;color:#5C3A40">a sua essência.</span></span>
+    </h1>
+    <p data-reveal="up" data-delay="800" style="margin:0;font-size:16px;line-height:1.6;max-width:340px">Resultados naturais, planejamento individual e técnica para realçar o que já existe em você.</p>
+    <a data-reveal="up" data-delay="950" href="{{ wa }}" target="{{ waTarget }}" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:22px 24px;background:#3B2A24;color:#F5F2EE;font-size:11px;letter-spacing:.28em;font-weight:500;text-transform:uppercase">Agendar avaliação <span style="display:block;width:28px;height:1px;background:#F5F2EE"></span></a>
+    <div data-reveal="fade" data-delay="1100" style="display:flex;justify-content:space-between;gap:12px;font-size:9px;letter-spacing:.28em;font-weight:500;color:#6E5A52"><span>DRA. VITÓRIA ALMEIDA</span><span>BELEZA · PRECISÃO</span></div>
+  </div>
+</section>
+</sc-if>
+
+<!-- ============ 02 POSICIONAMENTO ============ -->
+<section id="essencia" data-screen-label="02 Posicionamento" style="position:relative;padding:clamp(120px,20vh,240px) clamp(20px,6vw,96px) clamp(100px,16vh,200px);overflow:hidden">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div data-speed="0.45" style="position:absolute;right:8vw;top:12vh;width:clamp(180px,24vw,380px);aspect-ratio:1;border:1px solid rgba(59,42,36,.14);border-radius:50%"></div>
+    <div data-speed="0.6" style="position:absolute;right:calc(8vw + clamp(90px,12vw,190px));top:6vh;width:1px;height:clamp(240px,40vh,420px);background:rgba(59,42,36,.14)"></div>
+  </div>
+  <div data-reveal="fade" style="position:relative;display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500;margin-bottom:clamp(40px,7vh,80px)"><span>01</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>POSICIONAMENTO</span></div>
+  <h2 style="position:relative;margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(54px,9vw,176px);line-height:.9;letter-spacing:-.02em">
+    <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Menos exageros.</span></span>
+    <span style="display:block;overflow:hidden;padding:0 .12em .1em 0;margin-left:clamp(0px,14vw,280px)"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">Mais naturalidade.</span></span>
+  </h2>
+  <div style="position:relative;display:flex;flex-wrap:wrap;justify-content:flex-end;margin-top:clamp(48px,9vh,110px)">
+    <div data-reveal="up" style="max-width:440px;display:flex;flex-direction:column;gap:22px">
+      <p style="margin:0;font-size:clamp(17px,1.3vw,20px);line-height:1.7;text-wrap:pretty">A harmonização não precisa transformar quem você é. Ela deve respeitar sua anatomia, suas proporções e sua essência.</p>
+      <span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#6E5A52">— DRA. VITÓRIA ALMEIDA</span>
+    </div>
+  </div>
+  <p data-words="" style="position:relative;margin:clamp(90px,18vh,220px) 0 0;max-width:1100px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(30px,3.8vw,64px);line-height:1.15;letter-spacing:-.01em">
+    <span data-word="">Cada</span><span data-word="">rosto</span><span data-word="">possui</span><span data-word="">uma</span><span data-word="">anatomia</span><span data-word="">única.</span>
+    <span style="flex-basis:100%;height:0"></span>
+    <span data-word="" style="font-style:italic;color:#5C3A40">Cada</span><span data-word="" style="font-style:italic;color:#5C3A40">plano</span><span data-word="" style="font-style:italic;color:#5C3A40">de</span><span data-word="" style="font-style:italic;color:#5C3A40">tratamento</span><span data-word="" style="font-style:italic;color:#5C3A40">também</span><span data-word="" style="font-style:italic;color:#5C3A40">deve</span><span data-word="" style="font-style:italic;color:#5C3A40">ser.</span>
+  </p>
+</section>
+
+<!-- ============ 03 AUTORIDADE ============ -->
+<section id="sobre" data-screen-label="03 Autoridade" style="position:relative;padding:clamp(90px,14vh,180px) clamp(20px,6vw,96px) clamp(120px,18vh,220px);background:#EDE5DE;overflow:hidden">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div data-speed="0.25" style="position:absolute;left:-2vw;top:2vh;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:26vw;line-height:.8;color:#E6D8CE;white-space:nowrap;letter-spacing:-.03em">Vitória</div>
+  </div>
+  <div style="position:relative;display:flex;flex-wrap:wrap;gap:clamp(56px,7vw,120px);align-items:flex-start">
+    <div style="position:relative;flex:1 1 420px;min-width:0;height:clamp(520px,86vh,960px)">
+      <div data-speed="0.85" style="position:absolute;inset:0">
+        <div data-reveal="clip" data-dur="1800" style="position:absolute;inset:0;overflow:hidden;background:#E6D8CE;transition:transform 1.2s cubic-bezier(.16,1,.3,1)">
+          <image-slot id="sobre-retrato" shape="rect" placeholder="Retrato editorial — meio corpo, olhar para a câmera"></image-slot>
+        </div>
+      </div>
+      <div style="position:absolute;right:-3vw;bottom:-7vh;width:40%;aspect-ratio:4/5">
+        <div data-speed="0.6" style="position:absolute;inset:0">
+          <div data-reveal="clip" data-delay="300" style="position:absolute;inset:0;border:10px solid #EDE5DE;background:#D9C3B5;overflow:hidden">
+            <image-slot id="sobre-detalhe" shape="rect" placeholder="Detalhe — mãos, atendimento"></image-slot>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;left:0;top:calc(100% + 20px);font-size:9px;letter-spacing:.3em;font-weight:500;color:#6E5A52">FIG. 01 — DRA. VITÓRIA ALMEIDA</div>
+    </div>
+
+    <div style="flex:1 1 420px;min-width:0;padding-top:clamp(0px,8vh,120px);display:flex;flex-direction:column;gap:clamp(36px,5vh,56px)">
+      <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>02</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>A ESPECIALISTA</span></div>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(46px,6vw,108px);line-height:.92;letter-spacing:-.018em">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Precisão técnica.</span></span>
+        <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">Olhar estético.</span></span>
+      </h2>
+      <div data-reveal="up" style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end;justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.4vw,38px);font-weight:400;line-height:1">Dra. Vitória Almeida</span>
+          <span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#6E5A52">CIRURGIÃ-DENTISTA · CRO 65679</span>
+        </div>
+        <span style="font-family:'Bodoni Moda',serif;font-size:44px;line-height:1;color:#5C3A40">VA.</span>
+      </div>
+      <p data-reveal="up" style="margin:0;max-width:480px;font-size:17px;line-height:1.7;text-wrap:pretty">Conhecimento técnico, análise facial criteriosa e sensibilidade estética — reunidos em planos que respeitam a individualidade de cada rosto.</p>
+      <div style="display:flex;flex-direction:column">
+        <div data-reveal="up" style="display:grid;grid-template-columns:minmax(110px,150px) 1fr;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid rgba(59,42,36,.2)"><span style="font-size:10px;letter-spacing:.28em;font-weight:500;color:#6E5A52">FORMAÇÃO</span><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400">Cirurgiã-Dentista</span></div>
+        <div data-reveal="up" data-delay="80" style="display:grid;grid-template-columns:minmax(110px,150px) 1fr;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid rgba(59,42,36,.2)"><span style="font-size:10px;letter-spacing:.28em;font-weight:500;color:#6E5A52">PÓS-GRADUAÇÃO</span><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400">Harmonização Orofacial</span></div>
+        <div data-reveal="up" data-delay="160" style="display:grid;grid-template-columns:minmax(110px,150px) 1fr;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid rgba(59,42,36,.2)"><span style="font-size:10px;letter-spacing:.28em;font-weight:500;color:#6E5A52">PÓS-GRADUAÇÃO</span><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400">Odontologia Estética</span></div>
+        <div data-reveal="up" data-delay="240" style="display:grid;grid-template-columns:minmax(110px,150px) 1fr;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid rgba(59,42,36,.2)"><span style="font-size:10px;letter-spacing:.28em;font-weight:500;color:#6E5A52">ATUALIZAÇÃO</span><span style="display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400">Cursos e atualização contínua</span><span style="font-size:11px;color:#6E5A52;letter-spacing:.04em">[ lista a inserir ]</span></span></div>
+        <div data-reveal="up" data-delay="320" style="display:grid;grid-template-columns:minmax(110px,150px) 1fr;gap:20px;align-items:baseline;padding:18px 0;border-top:1px solid rgba(59,42,36,.2);border-bottom:1px solid rgba(59,42,36,.2)"><span style="font-size:10px;letter-spacing:.28em;font-weight:500;color:#6E5A52">ATUAÇÃO</span><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400">Belo Horizonte · Barbacena</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03b ESTUDO DE FORMA (3D) ============ -->
+<section id="forma" data-sculpt="" data-screen-label="04 Estudo de forma 3D" style="position:relative;height:380vh;background:#F5F2EE">
+  <div style="position:sticky;top:0;height:100vh;overflow:hidden">
+    <div style="position:absolute;inset:0;pointer-events:none">
+      <div data-depth="-12" style="position:absolute;left:50%;top:50%;width:78vmin;height:78vmin;margin:-39vmin 0 0 -39vmin;border:1px solid rgba(59,42,36,.08);border-radius:50%"></div>
+      <div data-depth="-6" style="position:absolute;left:50%;top:50%;width:112vmin;height:112vmin;margin:-56vmin 0 0 -56vmin;border:1px solid rgba(59,42,36,.06);border-radius:50%"></div>
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(59,42,36,.06)"></div>
+    </div>
+    <div style="position:absolute;inset:0">
+      <sc-if value="{{ show3d }}" hint-placeholder-val="{{ true }}">
+        <va-sculpture data-sculpture="" style="display:block;position:absolute;inset:0;width:100%;height:100%"></va-sculpture>
+      </sc-if>
+      <sc-if value="{{ no3d }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:50%;top:50%;width:min(52vmin,520px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 34% 30%,#F5F2EE 0%,#E6D6CB 38%,#D9C3B5 64%,#B79C8C 100%)"></div>
+      </sc-if>
+    </div>
+    <div style="position:absolute;left:clamp(20px,6vw,96px);top:clamp(96px,15vh,150px);display:flex;flex-direction:column;gap:14px;max-width:300px;pointer-events:none">
+      <div style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>03</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>ESTUDO DE FORMA</span></div>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#6E5A52">Os quatro princípios por trás de cada plano de tratamento.</p>
+    </div>
+    <div style="position:absolute;left:clamp(20px,6vw,96px);bottom:clamp(48px,11vh,120px);width:min(560px,calc(100% - 40px));height:clamp(170px,24vh,240px);pointer-events:none">
+      <div data-phase="0" style="position:absolute;left:0;bottom:0;display:flex;flex-direction:column;gap:12px;opacity:1;transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)">
+        <span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#5C3A40">01 / 04</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(64px,9vw,160px);line-height:.85;letter-spacing:-.02em">Forma</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,1.5vw,24px);color:#6E5A52">Tudo começa pela estrutura de cada rosto.</span>
+      </div>
+      <div data-phase="1" style="position:absolute;left:0;bottom:0;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)">
+        <span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#5C3A40">02 / 04</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(64px,9vw,160px);line-height:.85;letter-spacing:-.02em">Proporção</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,1.5vw,24px);color:#6E5A52">Medidas que conversam entre si.</span>
+      </div>
+      <div data-phase="2" style="position:absolute;left:0;bottom:0;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)">
+        <span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#5C3A40">03 / 04</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(64px,9vw,160px);line-height:.85;letter-spacing:-.02em">Equilíbrio</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,1.5vw,24px);color:#6E5A52">Nenhum ponto se sobrepõe ao todo.</span>
+      </div>
+      <div data-phase="3" style="position:absolute;left:0;bottom:0;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)">
+        <span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#5C3A40">04 / 04</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:clamp(64px,9vw,160px);line-height:.85;letter-spacing:-.02em;color:#5C3A40">Precisão</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(19px,1.5vw,24px);color:#6E5A52">Técnica a serviço da naturalidade.</span>
+      </div>
+    </div>
+    <div style="position:absolute;right:clamp(20px,4vw,64px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px;font-size:9px;letter-spacing:.3em;font-weight:500">
+      <div data-tick="0" style="display:flex;align-items:center;gap:12px;justify-content:flex-end;transition:opacity .8s"><span>FORMA</span><span data-tick-line="" style="display:block;width:28px;height:1px;background:#3B2A24;transform-origin:right;transition:transform .8s cubic-bezier(.16,1,.3,1)"></span></div>
+      <div data-tick="1" style="display:flex;align-items:center;gap:12px;justify-content:flex-end;opacity:.35;transition:opacity .8s"><span>PROPORÇÃO</span><span data-tick-line="" style="display:block;width:28px;height:1px;background:#3B2A24;transform-origin:right;transform:scaleX(.4);transition:transform .8s cubic-bezier(.16,1,.3,1)"></span></div>
+      <div data-tick="2" style="display:flex;align-items:center;gap:12px;justify-content:flex-end;opacity:.35;transition:opacity .8s"><span>EQUILÍBRIO</span><span data-tick-line="" style="display:block;width:28px;height:1px;background:#3B2A24;transform-origin:right;transform:scaleX(.4);transition:transform .8s cubic-bezier(.16,1,.3,1)"></span></div>
+      <div data-tick="3" style="display:flex;align-items:center;gap:12px;justify-content:flex-end;opacity:.35;transition:opacity .8s"><span>PRECISÃO</span><span data-tick-line="" style="display:block;width:28px;height:1px;background:#3B2A24;transform-origin:right;transform:scaleX(.4);transition:transform .8s cubic-bezier(.16,1,.3,1)"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 PROCEDIMENTOS — STACK 1 ============ -->
+<section id="procedimentos" data-screen-label="05 Procedimentos" style="position:relative;background:#F5F2EE">
+  <div style="padding:clamp(100px,16vh,180px) clamp(20px,6vw,96px) clamp(60px,10vh,120px);display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;align-items:flex-end">
+    <div style="display:flex;flex-direction:column;gap:clamp(32px,5vh,56px);flex:1 1 520px">
+      <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>04</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>PROCEDIMENTOS</span></div>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(46px,6.4vw,118px);line-height:.92;letter-spacing:-.018em">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Tratamentos pensados</span></span>
+        <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">para o seu rosto.</span></span>
+      </h2>
+    </div>
+    <nav data-reveal="up" style="flex:0 1 340px;display:flex;flex-direction:column">
+      <sc-for list="{{ procs }}" as="p" hint-placeholder-count="5">
+        <a href="#proc-{{ p.n }}" style="display:flex;gap:18px;align-items:baseline;padding:13px 0;border-top:1px solid rgba(59,42,36,.18);transition:padding .6s cubic-bezier(.16,1,.3,1),color .4s" style-hover="padding-left:12px;color:#5C3A40"><span style="font-size:10px;letter-spacing:.2em;font-weight:500;color:#6E5A52">{{ p.n }}</span><span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400">{{ p.name }}</span></a>
+      </sc-for>
+    </nav>
+  </div>
+
+  <div data-stack="proc" style="position:relative">
+    <sc-for list="{{ procs }}" as="p" hint-placeholder-count="5">
+      <article id="proc-{{ p.n }}" data-stack-panel="" style="position:sticky;top:0;height:100vh;min-height:620px">
+        <div data-stack-inner="" style="position:absolute;inset:0;overflow:hidden;background:{{ p.bg }};color:{{ p.fg }};transform-origin:50% 0%;will-change:transform">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:row-reverse;flex-wrap:wrap;align-content:center;align-items:center;gap:clamp(24px,5vw,96px);padding:clamp(80px,11vh,110px) clamp(20px,6vw,96px) clamp(56px,8vh,80px)">
+            <div style="position:relative;flex:1 1 360px;min-width:0;height:max(38vh,min(74vh,calc(40vw + 18vh)))">
+              <div data-stack-clip="" style="position:absolute;inset:0;overflow:hidden;border-radius:{{ p.radius }};background:{{ p.slotBg }}">
+                <div data-stack-img="" style="position:absolute;inset:0;transform-origin:50% 60%">
+                  <image-slot id="{{ p.slot }}" shape="rect" placeholder="{{ p.ph }}"></image-slot>
+                </div>
+              </div>
+              <div style="position:absolute;left:0;top:calc(100% + 14px);display:flex;gap:14px;font-size:9px;letter-spacing:.3em;font-weight:500;color:{{ p.sub }}"><span>{{ p.n }} / 05</span><span>{{ p.tags }}</span></div>
+            </div>
+            <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:clamp(14px,2.4vh,28px)">
+              <div data-stack-num="" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:clamp(72px,12vw,230px);line-height:.78;letter-spacing:-.04em;color:{{ p.numc }}">{{ p.n }}</div>
+              <h3 data-stack-title="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,5.2vw,96px);line-height:.95;letter-spacing:-.015em">{{ p.name }}</h3>
+              <p style="margin:0;max-width:460px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,1.8vw,28px);line-height:1.35;color:{{ p.sub }};text-wrap:pretty">{{ p.desc }}</p>
+            </div>
+          </div>
+          <div data-stack-shade="" style="position:absolute;inset:0;background:#111111;opacity:0;pointer-events:none"></div>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ============ 05 RESULTADOS — STACK 2 ============ -->
+<section id="resultados" data-screen-label="06 Antes e depois" style="position:relative;background:#F5F2EE;padding:clamp(110px,18vh,200px) clamp(20px,6vw,96px) clamp(80px,12vh,140px)">
+  <div style="max-width:1320px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(56px,9vh,110px)">
+      <div style="display:flex;flex-direction:column;gap:clamp(32px,5vh,56px);flex:1 1 520px">
+        <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>05</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>RESULTADOS</span></div>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(46px,6.4vw,118px);line-height:.92;letter-spacing:-.018em">
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Antes e depois,</span></span>
+          <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">sem filtros.</span></span>
+        </h2>
+      </div>
+      <div data-reveal="up" style="flex:0 1 340px;display:flex;flex-direction:column;gap:16px;font-size:14px;line-height:1.6;color:#6E5A52">
+        <p style="margin:0">Fotografias reais, sem edição ou filtros. Arraste o divisor para comparar.</p>
+        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#3B2A24">Resultados individuais variam de acordo com anatomia e planejamento.</p>
+      </div>
+    </div>
+
+    <div data-stack="ba" style="position:relative">
+      <sc-for list="{{ bas }}" as="b" hint-placeholder-count="4">
+        <article data-ba-card="" style="position:sticky;top:{{ b.top }};padding-bottom:clamp(60px,10vh,120px)">
+          <div data-ba-inner="" style="position:relative;background:#F5F2EE;border-top:1px solid rgba(59,42,36,.25);padding-top:16px;transform-origin:50% 0%;will-change:transform">
+            <div style="display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:baseline;padding-bottom:16px">
+              <div style="display:flex;gap:18px;align-items:baseline">
+                <span style="font-size:10px;letter-spacing:.24em;font-weight:500;color:#5C3A40">{{ b.n }}</span>
+                <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2vw,30px);font-weight:400">{{ b.cat }}</span>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <span style="white-space:nowrap;font-size:9px;letter-spacing:.24em;font-weight:500;padding:7px 10px;border:1px solid rgba(59,42,36,.3)">CASO REAL · SEM FILTROS</span>
+                <span style="white-space:nowrap;font-size:9px;letter-spacing:.24em;font-weight:500;padding:7px 10px;border:1px dashed rgba(59,42,36,.4);color:#6E5A52">USO DE IMAGEM: [ AUTORIZAÇÃO ]</span>
+              </div>
+            </div>
+            <div data-ba="" style="position:relative;height:max(360px,calc(100vh - 290px));overflow:hidden;background:#EDE5DE;user-select:none">
+              <div style="position:absolute;inset:0"><image-slot id="ba-{{ b.k }}-antes" shape="rect" placeholder="ANTES — {{ b.cat }}"></image-slot></div>
+              <div style="position:absolute;inset:0;clip-path:inset(0 0 0 var(--pos,50%));background:#E6D8CE"><image-slot id="ba-{{ b.k }}-depois" shape="rect" placeholder="DEPOIS — {{ b.cat }}"></image-slot></div>
+              <span style="position:absolute;left:18px;top:18px;padding:8px 12px;background:#F5F2EE;color:#3B2A24;font-size:9px;letter-spacing:.3em;font-weight:500;pointer-events:none">ANTES</span>
+              <span style="position:absolute;right:18px;top:18px;padding:8px 12px;background:#3B2A24;color:#F5F2EE;font-size:9px;letter-spacing:.3em;font-weight:500;pointer-events:none">DEPOIS</span>
+              <div style="position:absolute;top:0;bottom:0;left:var(--pos,50%);width:1px;background:#F5F2EE;pointer-events:none"></div>
+              <div data-ba-handle="" role="slider" tabindex="0" aria-label="Comparar antes e depois" data-cursor="Arraste" style="position:absolute;top:0;bottom:0;left:var(--pos,50%);width:72px;margin-left:-36px;cursor:ew-resize;touch-action:pan-y;display:flex;align-items:center;justify-content:center">
+                <span style="width:60px;height:60px;border-radius:50%;border:1px solid #F5F2EE;background:rgba(59,42,36,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;gap:10px;color:#F5F2EE;font-size:14px;transition:transform .5s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.1)"><span>‹</span><span>›</span></span>
+              </div>
+            </div>
+          </div>
+          <div data-ba-shade="" style="position:absolute;inset:0;background:#F5F2EE;opacity:0;pointer-events:none"></div>
+        </article>
+      </sc-for>
+    </div>
+
+    <div data-reveal="up" style="display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:center;padding-top:40px;border-top:1px solid rgba(59,42,36,.2)">
+      <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,34px);font-weight:300;max-width:620px">Cada resultado começa com uma avaliação individual.</p>
+      <a href="{{ wa }}" target="{{ waTarget }}" rel="noopener" data-cursor="Agendar" style="display:inline-flex;align-items:center;gap:18px;padding:21px 30px 21px 34px;background:#3B2A24;color:#F5F2EE;font-size:11px;letter-spacing:.28em;font-weight:500;text-transform:uppercase;transition:background .7s cubic-bezier(.16,1,.3,1),letter-spacing .7s cubic-bezier(.16,1,.3,1),gap .7s cubic-bezier(.16,1,.3,1)" style-hover="background:#5C3A40;color:#F5F2EE;letter-spacing:.32em;gap:26px">Agendar avaliação <span style="display:block;width:28px;height:1px;background:currentColor"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FILOSOFIA ============ -->
+<section data-screen-label="07 Filosofia" style="position:relative;min-height:115vh;display:flex;align-items:center;padding:clamp(120px,18vh,200px) clamp(20px,6vw,96px);background:#5C3A40;color:#F5F2EE;overflow:hidden">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div data-speed="0.3" style="position:absolute;left:50%;top:50%;width:min(110vw,1400px);aspect-ratio:1;margin-left:calc(min(110vw,1400px) / -2);margin-top:calc(min(110vw,1400px) / -2);border:1px solid rgba(245,242,238,.1);border-radius:50%"></div>
+    <div data-speed="0.5" style="position:absolute;left:50%;top:50%;width:min(64vw,820px);aspect-ratio:1;margin-left:calc(min(64vw,820px) / -2);margin-top:calc(min(64vw,820px) / -2);border:1px solid rgba(245,242,238,.12);border-radius:50%"></div>
+  </div>
+  <div style="position:relative;width:100%;display:flex;flex-direction:column;gap:clamp(40px,7vh,80px)">
+    <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500;color:#E6D6CB"><span style="display:block;width:48px;height:1px;background:#E6D6CB"></span><span>FILOSOFIA</span></div>
+    <h2 data-track="" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(58px,10.4vw,210px);line-height:.88;letter-spacing:-.02em">
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" data-dur="1800" style="display:block">A sua melhor versão</span></span>
+      <span style="display:block;overflow:hidden;padding:0 .12em .1em 0;text-align:right"><span data-reveal="line" data-delay="200" data-dur="1800" style="display:block;font-style:italic;color:#D9C3B5">ainda é você.</span></span>
+    </h2>
+    <div data-reveal="fade" data-delay="400" style="display:flex;justify-content:space-between;align-items:center;gap:24px;font-size:10px;letter-spacing:.3em;font-weight:500;color:#E6D6CB"><span style="font-family:'Bodoni Moda',serif;font-size:28px;letter-spacing:0;color:#F5F2EE">VA.</span><span>BELEZA · PRECISÃO · NATURALIDADE</span></div>
+  </div>
+</section>
+
+<!-- ============ 06 COMO FUNCIONA ============ -->
+<section id="jornada" data-screen-label="08 Como funciona" style="position:relative;padding:clamp(110px,18vh,200px) clamp(20px,6vw,96px) clamp(80px,12vh,140px);background:#F5F2EE">
+  <div style="display:flex;flex-wrap:wrap;gap:clamp(56px,8vw,140px);align-items:flex-start;max-width:1320px;margin:0 auto">
+    <div style="flex:1 1 360px;min-width:0;position:sticky;top:clamp(110px,16vh,160px);display:flex;flex-direction:column;gap:clamp(32px,5vh,52px)">
+      <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>06</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>COMO FUNCIONA</span></div>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,88px);line-height:.95;letter-spacing:-.015em">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Seu tratamento começa</span></span>
+        <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">antes do procedimento.</span></span>
+      </h2>
+      <div data-reveal="up" data-delay="200"><a href="{{ wa }}" target="{{ waTarget }}" rel="noopener" style="display:inline-flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;padding-bottom:6px;background-image:linear-gradient(#3B2A24,#3B2A24);background-repeat:no-repeat;background-position:0 100%;background-size:100% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1),gap .6s" style-hover="background-size:30% 1px;gap:22px">Iniciar pela avaliação <span style="display:block;width:22px;height:1px;background:currentColor"></span></a></div>
+    </div>
+    <div data-line-track="" style="flex:1.2 1 420px;min-width:0;position:relative;padding-left:clamp(36px,4vw,64px)">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(59,42,36,.14)"></div>
+      <div data-line="" style="position:absolute;left:0;top:0;bottom:0;width:1px;background:#5C3A40;transform-origin:top;transform:scaleY(0)"></div>
+      <div data-step="" style="position:relative;padding:4px 0 clamp(90px,16vh,180px)">
+        <span data-step-dot="" style="position:absolute;left:calc(-1 * clamp(36px,4vw,64px) - 5px);top:18px;width:11px;height:11px;border-radius:50%;border:1px solid #5C3A40;background:#F5F2EE;transition:background .6s"></span>
+        <div data-reveal="up" style="display:flex;flex-direction:column;gap:16px;max-width:480px">
+          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(64px,6vw,104px);line-height:.8;color:#5C3A40">01</span>
+          <span style="font-size:13px;letter-spacing:.34em;font-weight:500">AVALIAÇÃO</span>
+          <p style="margin:0;font-size:17px;line-height:1.7;color:#3B2A24">Escuta atenta, análise facial e entendimento das suas expectativas — para saber o que faz sentido, e o que não faz.</p>
+        </div>
+      </div>
+      <div data-step="" style="position:relative;padding:4px 0 clamp(90px,16vh,180px)">
+        <span data-step-dot="" style="position:absolute;left:calc(-1 * clamp(36px,4vw,64px) - 5px);top:18px;width:11px;height:11px;border-radius:50%;border:1px solid #5C3A40;background:#F5F2EE;transition:background .6s"></span>
+        <div data-reveal="up" style="display:flex;flex-direction:column;gap:16px;max-width:480px">
+          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(64px,6vw,104px);line-height:.8;color:#5C3A40">02</span>
+          <span style="font-size:13px;letter-spacing:.34em;font-weight:500">PLANEJAMENTO</span>
+          <p style="margin:0;font-size:17px;line-height:1.7;color:#3B2A24">Um plano individual, que respeita anatomia, proporções e o tempo de cada etapa.</p>
+        </div>
+      </div>
+      <div data-step="" style="position:relative;padding:4px 0 8px">
+        <span data-step-dot="" style="position:absolute;left:calc(-1 * clamp(36px,4vw,64px) - 5px);top:18px;width:11px;height:11px;border-radius:50%;border:1px solid #5C3A40;background:#F5F2EE;transition:background .6s"></span>
+        <div data-reveal="up" style="display:flex;flex-direction:column;gap:16px;max-width:480px">
+          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(64px,6vw,104px);line-height:.8;color:#5C3A40">03</span>
+          <span style="font-size:13px;letter-spacing:.34em;font-weight:500">PROCEDIMENTO</span>
+          <p style="margin:0;font-size:17px;line-height:1.7;color:#3B2A24">Execução técnica com cuidado, orientações claras e acompanhamento após o procedimento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 DEPOIMENTOS ============ -->
+<section data-screen-label="09 Depoimentos" style="position:relative;padding:clamp(100px,16vh,180px) clamp(20px,6vw,96px);background:#EDE5DE">
+  <div style="max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(56px,9vh,100px)">
+    <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:clamp(32px,5vh,52px);flex:1 1 520px">
+        <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>07</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>RELATOS</span></div>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(42px,5vw,88px);line-height:.95;letter-spacing:-.015em">
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Na voz de quem</span></span>
+          <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">confiou o próprio rosto.</span></span>
+        </h2>
+      </div>
+      <p data-reveal="up" style="flex:0 1 320px;margin:0;font-size:13px;line-height:1.6;color:#6E5A52">Espaço reservado para depoimentos reais, publicados com autorização das pacientes.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(32px,4vw,64px)">
+      <sc-for list="{{ depos }}" as="d" hint-placeholder-count="3">
+        <figure data-reveal="up" data-delay="{{ d.delay }}" style="margin:0;display:flex;flex-direction:column;gap:22px;padding-top:28px;border-top:1px solid rgba(59,42,36,.3)">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:84px;line-height:.5;color:#5C3A40;height:36px">“</span>
+          <blockquote style="margin:0;display:flex;flex-direction:column;gap:12px">
+            <span style="display:block;height:9px;width:100%;background:rgba(59,42,36,.08)"></span>
+            <span style="display:block;height:9px;width:94%;background:rgba(59,42,36,.08)"></span>
+            <span style="display:block;height:9px;width:62%;background:rgba(59,42,36,.08)"></span>
+            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6E5A52;margin-top:6px">[ Depoimento da paciente ]</span>
+          </blockquote>
+          <figcaption style="display:flex;align-items:center;gap:14px;margin-top:8px">
+            <image-slot id="depo-foto-{{ d.i }}" shape="circle" placeholder="Foto" style="width:52px;height:52px;flex:none"></image-slot>
+            <span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:.24em;font-weight:500">[ NOME ]</span><span style="font-size:12px;color:#6E5A52">[ Procedimento ] · foto se autorizada</span></span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+    <div data-reveal="up" style="display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;justify-content:space-between;padding:26px 0;border-top:1px solid rgba(59,42,36,.2);border-bottom:1px solid rgba(59,42,36,.2)">
+      <span style="font-size:10px;letter-spacing:.3em;font-weight:500">AVALIAÇÕES GOOGLE</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:#6E5A52">[ nota ] · [ nº de avaliações ]</span>
+      <span style="font-size:12px;color:#6E5A52">Integração a ser conectada quando disponível</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 INSTAGRAM ============ -->
+<section data-screen-label="10 Instagram" style="position:relative;padding:clamp(110px,18vh,200px) clamp(20px,6vw,96px) clamp(120px,18vh,220px);background:#F5F2EE;overflow:hidden">
+  <div style="display:flex;flex-wrap:wrap;gap:clamp(56px,7vw,120px);align-items:center;max-width:1400px;margin:0 auto">
+    <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:clamp(28px,4vh,44px)">
+      <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500"><span>08</span><span style="display:block;width:48px;height:1px;background:#3B2A24"></span><span>PRESENÇA DIGITAL</span></div>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,4.4vw,78px);line-height:.95;letter-spacing:-.015em">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Por trás da técnica,</span></span>
+        <span style="display:block;overflow:hidden;padding:0 .12em .1em 0"><span data-reveal="line" data-delay="140" style="display:block;font-style:italic;color:#5C3A40">uma profissional real.</span></span>
+      </h2>
+      <p data-reveal="up" style="margin:0;max-width:380px;font-size:16px;line-height:1.7">Rotina, bastidores e conteúdos sobre harmonização com naturalidade.</p>
+      <div data-reveal="up"><a href="{{ ig }}" target="_blank" rel="noopener" data-cursor="Instagram" style="display:inline-flex;align-items:center;gap:18px;padding:20px 30px;border:1px solid #3B2A24;color:#3B2A24;font-size:11px;letter-spacing:.28em;font-weight:500;text-transform:uppercase;transition:background .6s cubic-bezier(.16,1,.3,1),color .6s,letter-spacing .6s cubic-bezier(.16,1,.3,1)" style-hover="background:#3B2A24;color:#F5F2EE;letter-spacing:.32em">Ver Instagram <span style="display:block;width:24px;height:1px;background:currentColor"></span></a></div>
+    </div>
+    <div style="flex:1.5 1 460px;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.4vw,20px);align-items:start">
+      <div style="position:relative;aspect-ratio:4/5;margin-top:12%"><div data-speed="0.8" style="position:absolute;inset:0"><div data-reveal="clip" style="position:absolute;inset:0;overflow:hidden;background:#EDE5DE;transition:transform 1s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(.97)"><image-slot id="insta-1" shape="rect" placeholder="Post 1"></image-slot></div></div></div>
+      <div style="position:relative;aspect-ratio:4/5"><div data-speed="0.95" style="position:absolute;inset:0"><div data-reveal="clip" data-delay="120" style="position:absolute;inset:0;overflow:hidden;background:#E6D8CE;transition:transform 1s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(.97)"><image-slot id="insta-2" shape="rect" placeholder="Post 2"></image-slot></div></div></div>
+      <div style="position:relative;aspect-ratio:4/5;margin-top:30%"><div data-speed="0.7" style="position:absolute;inset:0"><div data-reveal="clip" data-delay="240" style="position:absolute;inset:0;overflow:hidden;background:#EDE5DE;transition:transform 1s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(.97)"><image-slot id="insta-3" shape="rect" placeholder="Post 3"></image-slot></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 CTA FINAL ============ -->
+<section id="agendar" data-screen-label="11 CTA final" style="position:relative;background:#3B2A24;color:#F5F2EE;padding:clamp(120px,20vh,230px) clamp(20px,6vw,96px) clamp(80px,12vh,130px);overflow:hidden">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div data-speed="0.3" data-depth="-10" style="position:absolute;right:-8vw;bottom:-14vw;font-family:'Bodoni Moda',serif;font-size:56vw;line-height:.8;letter-spacing:-.05em;color:#45322B;white-space:nowrap">VA.</div>
+  </div>
+  <div style="position:relative;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(48px,8vh,90px)">
+    <div data-reveal="fade" style="display:flex;align-items:center;gap:18px;font-size:10px;letter-spacing:.32em;font-weight:500;color:#D9C3B5"><span>09</span><span style="display:block;width:48px;height:1px;background:#D9C3B5"></span><span>AVALIAÇÃO</span></div>
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(50px,8vw,156px);line-height:.9;letter-spacing:-.02em">
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" style="display:block">Naturalidade não</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-reveal="line" data-delay="110" style="display:block">acontece por acaso.</span></span>
+      <span style="display:block;overflow:hidden;padding:0 .12em .1em 0;margin-left:clamp(0px,10vw,200px)"><span data-reveal="line" data-delay="220" style="display:block;font-style:italic;color:#D9C3B5">Ela é planejada.</span></span>
+    </h2>
+    <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:flex-end">
+      <p data-reveal="up" style="margin:0;max-width:440px;font-size:clamp(17px,1.3vw,20px);line-height:1.7;color:#F5F2EE;text-wrap:pretty">Agende sua avaliação e descubra quais possibilidades fazem sentido para o seu rosto.</p>
+      <a data-reveal="up" data-delay="120" href="{{ wa }}" target="{{ waTarget }}" rel="noopener" data-cursor="WhatsApp" style="display:inline-flex;align-items:center;gap:22px;padding:26px 36px 26px 40px;background:#D9C3B5;color:#3B2A24;font-size:12px;letter-spacing:.3em;font-weight:500;text-transform:uppercase;transition:background .7s cubic-bezier(.16,1,.3,1),letter-spacing .7s cubic-bezier(.16,1,.3,1),gap .7s cubic-bezier(.16,1,.3,1)" style-hover="background:#F5F2EE;color:#3B2A24;letter-spacing:.34em;gap:30px">Agendar avaliação <span style="display:block;width:32px;height:1px;background:currentColor"></span></a>
+    </div>
+    <div data-reveal="up" style="display:flex;align-items:center;gap:26px;padding-top:clamp(40px,7vh,80px)">
+      <span style="font-family:'Bodoni Moda',serif;font-size:clamp(56px,5vw,84px);line-height:1;letter-spacing:-.02em">VA.</span>
+      <span style="display:flex;flex-direction:column;gap:6px;border-left:1px solid rgba(245,242,238,.3);padding-left:22px">
+        <span style="font-size:11px;letter-spacing:.3em;font-weight:500">DRA. VITÓRIA ALMEIDA</span>
+        <span style="font-size:10px;letter-spacing:.3em;color:#D9C3B5">HARMONIZAÇÃO OROFACIAL</span>
+        <span style="font-size:10px;letter-spacing:.3em;color:#D9C3B5">CRO 65679</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-screen-label="12 Rodapé" style="background:#3B2A24;color:#F5F2EE;padding:0 clamp(20px,6vw,96px) 40px">
+  <div style="max-width:1400px;margin:0 auto;border-top:1px solid rgba(245,242,238,.16);padding-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px">
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5"><span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#D9C3B5;margin-bottom:6px">PROFISSIONAL</span><span>Dra. Vitória Almeida</span><span>Cirurgiã-Dentista</span><span>CRO 65679</span></div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5"><span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#D9C3B5;margin-bottom:6px">ATUAÇÃO</span><span>Belo Horizonte · Barbacena</span><span style="color:#D9C3B5">[ endereço a confirmar ]</span></div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5;align-items:flex-start"><span style="font-size:10px;letter-spacing:.3em;font-weight:500;color:#D9C3B5;margin-bottom:6px">CONTATO</span>
+      <a href="{{ ig }}" target="_blank" rel="noopener" style="padding-bottom:3px;background-image:linear-gradient(#F5F2EE,#F5F2EE);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:100% 1px">Instagram</a>
+      <a href="{{ wa }}" target="{{ waTarget }}" rel="noopener" style="padding-bottom:3px;background-image:linear-gradient(#F5F2EE,#F5F2EE);background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .6s cubic-bezier(.16,1,.3,1)" style-hover="background-size:100% 1px">WhatsApp</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;line-height:1.6;color:#D9C3B5"><span style="font-size:10px;letter-spacing:.3em;font-weight:500;margin-bottom:6px">NOTA</span><span>Resultados individuais variam de acordo com anatomia e planejamento. A indicação de qualquer procedimento depende de avaliação profissional.</span></div>
+  </div>
+  <div style="max-width:1400px;margin:44px auto 0;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:10px;letter-spacing:.24em;color:#D9C3B5">
+    <span>© 2026 DRA. VITÓRIA ALMEIDA</span>
+    <a href="#topo" style="color:#F5F2EE">VOLTAR AO TOPO ↑</a>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<sc-if value="{{ showMbar }}" hint-placeholder-val="{{ false }}">
+  <a data-mbar="" href="{{ wa }}" target="{{ waTarget }}" rel="noopener" style="position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:19px 22px;background:#3B2A24;color:#F5F2EE;font-size:11px;letter-spacing:.26em;font-weight:500;text-transform:uppercase;transform:translateY(160%);transition:transform .9s cubic-bezier(.16,1,.3,1)">Agendar avaliação <span style="font-size:9px;letter-spacing:.24em;color:#D9C3B5">WHATSAPP</span></a>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Completo&quot;,&quot;Reduzido&quot;],&quot;default&quot;:&quot;Completo&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Experiência&quot;},&quot;customCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Experiência&quot;},&quot;show3d&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Experiência&quot;},&quot;stickyMobileCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Experiência&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;},&quot;instagram&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://instagram.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
+class Component extends DCLogic {
+  state = { mobile: typeof window !== 'undefined' && window.innerWidth < 1100, menu: false };
+
+  procs = [
+    { n: '01', name: 'Preenchimento Labial', desc: 'Mais do que volume, proporção, definição e harmonia.', tags: 'PROPORÇÃO · DEFINIÇÃO · HARMONIA', bg: '#F5F2EE', fg: '#3B2A24', sub: '#6E5A52', numc: '#5C3A40', slotBg: '#EDE5DE', radius: '0px', slot: 'proc-labial', ph: 'Editorial — lábios, luz natural' },
+    { n: '02', name: 'Toxina Botulínica', desc: 'Prevenção e suavização de marcas mantendo a naturalidade das expressões.', tags: 'PREVENÇÃO · SUAVIZAÇÃO · EXPRESSÃO', bg: '#EDE5DE', fg: '#3B2A24', sub: '#6E5A52', numc: '#5C3A40', slotBg: '#E6D8CE', radius: '999px 999px 0 0', slot: 'proc-toxina', ph: 'Editorial — terço superior, expressão' },
+    { n: '03', name: 'Perfiloplastia', desc: 'Equilíbrio entre testa, nariz, lábios e queixo.', tags: 'TESTA · NARIZ · LÁBIOS · QUEIXO', bg: '#E6D8CE', fg: '#3B2A24', sub: '#5E4B44', numc: '#5C3A40', slotBg: '#D9C3B5', radius: '0px', slot: 'proc-perfilo', ph: 'Editorial — perfil lateral' },
+    { n: '04', name: 'Full Face', desc: 'Um plano global para sustentação, proporção, volume e qualidade da pele.', tags: 'SUSTENTAÇÃO · PROPORÇÃO · VOLUME · PELE', bg: '#5C3A40', fg: '#F5F2EE', sub: '#E6D6CB', numc: '#D9C3B5', slotBg: '#6B474D', radius: '999px 999px 0 0', slot: 'proc-fullface', ph: 'Editorial — rosto completo, frontal' },
+    { n: '05', name: 'Skinbooster', desc: 'Qualidade da pele, hidratação e aparência mais viçosa.', tags: 'HIDRATAÇÃO · VIÇO · QUALIDADE', bg: '#F5F2EE', fg: '#3B2A24', sub: '#6E5A52', numc: '#5C3A40', slotBg: '#EDE5DE', radius: '0px', slot: 'proc-skin', ph: 'Editorial — textura da pele, close' }
+  ];
+  bas = [
+    { n: '01', cat: 'Preenchimento Labial', k: 'labial', top: '84px' },
+    { n: '02', cat: 'Toxina Botulínica', k: 'toxina', top: '108px' },
+    { n: '03', cat: 'Perfiloplastia', k: 'perfilo', top: '132px' },
+    { n: '04', cat: 'Full Face', k: 'fullface', top: '156px' }
+  ];
+  depos = [{ i: 1, delay: 0 }, { i: 2, delay: 120 }, { i: 3, delay: 240 }];
+
+  componentDidMount() {
+    this.mx = 0; this.my = 0; this.smx = 0; this.smy = 0; this.cx = -100; this.cy = -100; this.tx = -100; this.ty = -100;
+    this.reduce = this.props.motion === 'Reduzido' || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._onResize = () => { const m = innerWidth < 1100; if (m !== this.state.mobile) this.setState({ mobile: m }); };
+    this._onMove = (e) => { this.mx = (e.clientX / innerWidth - 0.5) * 2; this.my = (e.clientY / innerHeight - 0.5) * 2; this.tx = e.clientX; this.ty = e.clientY; };
+    this._onClick = (e) => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+      const id = a.getAttribute('href'); if (id.length < 2) return;
+      const el = document.querySelector(id); if (!el) return;
+      e.preventDefault(); scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: this.reduce ? 'auto' : 'smooth' });
+    };
+    addEventListener('resize', this._onResize);
+    addEventListener('pointermove', this._onMove, { passive: true });
+    document.addEventListener('click', this._onClick);
+    this.scan(); this.setupReveal(); this.setupCursor();
+    if (location.hash) setTimeout(() => { try { const el = document.querySelector(location.hash); if (el) scrollTo(0, el.getBoundingClientRect().top + scrollY); } catch (e) {} }, 500);
+    this.loop = this.loop.bind(this); this._raf = requestAnimationFrame(this.loop);
+  }
+  componentDidUpdate(prev) {
+    this.reduce = this.props.motion === 'Reduzido' || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => { this.scan(); this.setupReveal(); });
+    if (prev.customCursor !== this.props.customCursor) this.setupCursor();
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    removeEventListener('resize', this._onResize); removeEventListener('pointermove', this._onMove); document.removeEventListener('click', this._onClick);
+    this._io && this._io.disconnect(); this.cur && this.cur.remove(); document.documentElement.classList.remove('va-nocursor');
+  }
+
+  scan() {
+    const q = (s) => [...document.querySelectorAll(s)];
+    this.speedEls = q('[data-speed],[data-depth]').map((el) => ({ el, s: parseFloat(el.dataset.speed || '1'), d: parseFloat(el.dataset.depth || '0') }));
+    this.kb = q('[data-kenburns]');
+    this.nav = document.querySelector('[data-nav]');
+    this.panels = q('[data-stack-panel]').map((el) => ({ el, inner: el.querySelector('[data-stack-inner]'), shade: el.querySelector('[data-stack-shade]'), clip: el.querySelector('[data-stack-clip]'), img: el.querySelector('[data-stack-img]'), num: el.querySelector('[data-stack-num]'), title: el.querySelector('[data-stack-title]') }));
+    this.cards = q('[data-ba-card]').map((el) => ({ el, inner: el.querySelector('[data-ba-inner]'), shade: el.querySelector('[data-ba-shade]'), box: el.querySelector('[data-ba]'), st: parseFloat(getComputedStyle(el).top) || 0 }));
+    this.cards.forEach((c) => this.initBA(c.box));
+    this.words = q('[data-word]'); this.wordsBox = document.querySelector('[data-words]');
+    this.sculptSec = document.querySelector('[data-sculpt]'); this.sculpt = document.querySelector('[data-sculpture]');
+    this.phases = q('[data-phase]'); this.ticks = q('[data-tick]');
+    this.lineTrack = document.querySelector('[data-line-track]'); this.lineFill = document.querySelector('[data-line]');
+    this.steps = q('[data-step]').map((el) => ({ el, dot: el.querySelector('[data-step-dot]') }));
+    this.track = document.querySelector('[data-track]');
+    this.mbar = document.querySelector('[data-mbar]'); this.final = document.querySelector('#agendar');
+    const cue = document.querySelector('[data-scrollcue]');
+    if (cue && !cue._anim && !this.reduce) cue._anim = cue.animate([{ transform: 'translateY(-100%)' }, { transform: 'translateY(100%)' }], { duration: 2400, iterations: Infinity, easing: 'cubic-bezier(.65,0,.35,1)' });
+    this._phase = -1;
+  }
+
+  initBA(box) {
+    if (!box || box._init) return; box._init = true;
+    box._c = this.reduce ? 50 : 100; box._t = 50;
+    const h = box.querySelector('[data-ba-handle]'); if (!h) return;
+    const set = (e) => { const r = box.getBoundingClientRect(); box._t = Math.min(97, Math.max(3, ((e.clientX - r.left) / r.width) * 100)); };
+    h.addEventListener('pointerdown', (e) => { box._drag = true; h._down = true; try { h.setPointerCapture(e.pointerId); } catch (x) {} set(e); });
+    h.addEventListener('pointermove', (e) => { if (h._down) set(e); });
+    const up = () => { h._down = false; };
+    h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
+    h.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); box._drag = true; box._t = Math.min(97, Math.max(3, box._t + (e.key === 'ArrowLeft' ? -5 : 5))); }
+    });
+  }
+
+  fromKF(t) {
+    if (t === 'clip') return { clipPath: 'inset(100% 0% 0% 0%)' };
+    if (t === 'clipx') return { clipPath: 'inset(0% 100% 0% 0%)' };
+    if (t === 'line') return { transform: 'translateY(108%)' };
+    if (t === 'fade') return { opacity: '0' };
+    return { opacity: '0', transform: 'translateY(44px)' };
+  }
+  setupReveal() {
+    if (!this._io) this._io = new IntersectionObserver((es) => es.forEach((en) => {
+      if (!en.isIntersecting) return;
+      this._io.unobserve(en.target);
+      (en.target._rvKids || [en.target]).forEach((el) => this.play(el));
+    }), { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+    const vh = innerHeight;
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      if (el._rvDone || el._rvPending) return;
+      if (this.reduce) { el._rvDone = true; return; }
+      const target = el.parentElement || el;
+      const r = target.getBoundingClientRect();
+      const near = r.top < vh * 1.2 && r.bottom > 0;
+      el._rvPending = true;
+      Object.assign(el.style, this.fromKF(el.dataset.reveal));
+      if (near) { requestAnimationFrame(() => this.play(el)); return; }
+      if (target !== el) (target._rvKids = target._rvKids || []).push(el);
+      this._io.observe(target);
+    });
+  }
+  play(el) {
+    if (el._rvDone) return; el._rvDone = true;
+    clearTimeout(el._rvSafe);
+    el._rvSafe = setTimeout(() => { el.style.opacity = ''; el.style.transform = ''; el.style.clipPath = ''; }, 2600 + +(el.dataset.delay || 0) + +(el.dataset.dur || 1300));
+    const from = this.fromKF(el.dataset.reveal); const to = {};
+    for (const k in from) to[k] = k === 'opacity' ? '1' : k === 'clipPath' ? 'inset(0% 0% 0% 0%)' : 'translateY(0)';
+    const a = el.animate([from, to], { duration: +(el.dataset.dur || 1300), delay: +(el.dataset.delay || 0), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
+    a.onfinish = () => { for (const k in from) el.style[k] = ''; a.cancel(); };
+  }
+
+  setupCursor() {
+    const want = this.props.customCursor !== false && matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!want) { if (this.cur) { this.cur.remove(); this.cur = null; } document.documentElement.classList.remove('va-nocursor'); return; }
+    if (this.cur) return;
+    if (!document.getElementById('va-cur-style')) {
+      const s = document.createElement('style'); s.id = 'va-cur-style';
+      s.textContent = '.va-nocursor,.va-nocursor *{cursor:none!important}.va-nocursor image-slot,.va-nocursor image-slot *{cursor:auto!important}';
+      document.head.appendChild(s);
+    }
+    document.documentElement.classList.add('va-nocursor');
+    const c = document.createElement('div');
+    c.style.cssText = 'position:fixed;left:0;top:0;width:10px;height:10px;border-radius:50%;background:#F5F2EE;pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:width .6s cubic-bezier(.16,1,.3,1),height .6s cubic-bezier(.16,1,.3,1),opacity .4s;display:flex;align-items:center;justify-content:center;font:500 8px/1 Jost,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#111;will-change:transform';
+    document.body.appendChild(c); this.cur = c;
+    this._over = (e) => {
+      if (!this.cur) return;
+      const t = e.target;
+      if (t.closest && t.closest('image-slot') && !t.closest('[data-ba-handle]')) { c.style.opacity = '0'; return; }
+      c.style.opacity = '1';
+      const hit = t.closest && t.closest('a,button,[data-cursor],[data-ba-handle]');
+      const lab = hit && hit.getAttribute('data-cursor');
+      c.style.width = c.style.height = hit ? (lab ? '78px' : '44px') : '10px';
+      c.textContent = lab || '';
+    };
+    document.addEventListener('pointerover', this._over);
+  }
+
+  loop(now) {
+    this._raf = requestAnimationFrame(this.loop);
+    const vh = innerHeight, sy = scrollY, R = this.reduce;
+    const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const eo = (t) => 1 - Math.pow(1 - t, 3);
+    this.smx += (this.mx - this.smx) * 0.05; this.smy += (this.my - this.smy) * 0.05;
+
+    if (this.nav) {
+      const s = sy > 40;
+      if (s !== this._navS) {
+        this._navS = s;
+        Object.assign(this.nav.style, s
+          ? { background: 'rgba(245,242,238,.88)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', paddingTop: '14px', paddingBottom: '14px', borderBottomColor: 'rgba(59,42,36,.08)' }
+          : { background: 'transparent', backdropFilter: 'none', WebkitBackdropFilter: 'none', paddingTop: '22px', paddingBottom: '22px', borderBottomColor: 'transparent' });
+      }
+    }
+    if (this.cur) {
+      this.cx += (this.tx - this.cx) * 0.2; this.cy += (this.ty - this.cy) * 0.2;
+      this.cur.style.transform = `translate3d(${this.cx}px,${this.cy}px,0) translate(-50%,-50%)`;
+    }
+
+    if (!R) {
+      for (const o of this.speedEls) {
+        const p = o.el.parentElement; if (!p) continue;
+        const r = p.getBoundingClientRect(); if (r.bottom < -300 || r.top > vh + 300) continue;
+        const c = r.top + r.height / 2 - vh / 2;
+        const y = o.s !== 1 ? -c * (1 - o.s) : 0;
+        o.el.style.transform = `translate3d(${(this.smx * o.d).toFixed(2)}px,${(y + this.smy * o.d).toFixed(2)}px,0)`;
+      }
+      const k = 1.045 + 0.02 * Math.sin(now / 6500);
+      for (const el of this.kb) el.style.transform = `scale(${k.toFixed(4)})`;
+    }
+
+    // STACK 1 — procedimentos
+    for (let i = 0; i < this.panels.length; i++) {
+      const P = this.panels[i]; if (!P.inner) continue;
+      const nx = this.panels[i + 1];
+      const p = nx ? cl(1 - nx.el.getBoundingClientRect().top / vh) : 0;
+      P.inner.style.transform = `translateY(${(-2.5 * p).toFixed(3)}vh) scale(${(1 - 0.07 * p).toFixed(4)})`;
+      if (P.shade) P.shade.style.opacity = (p * 0.5).toFixed(3);
+      if (R) continue;
+      const e = eo(cl(1 - P.el.getBoundingClientRect().top / vh));
+      if (P.clip) P.clip.style.clipPath = `inset(${((1 - e) * 16).toFixed(2)}% 0% 0% 0%)`;
+      if (P.img) P.img.style.transform = `scale(${(1.16 - 0.16 * e + 0.03 * p).toFixed(4)})`;
+      if (P.num) P.num.style.transform = `translateY(${((1 - e) * 80).toFixed(1)}px)`;
+      if (P.title) { P.title.style.letterSpacing = `${(-0.015 + 0.05 * (1 - e)).toFixed(4)}em`; P.title.style.opacity = (0.3 + 0.7 * e).toFixed(3); }
+    }
+
+    // STACK 2 — antes/depois
+    for (let i = 0; i < this.cards.length; i++) {
+      const C = this.cards[i]; const box = C.box; if (!box) continue;
+      const r = C.el.getBoundingClientRect();
+      if (!box._drag && !R) box._t = 100 - 50 * eo(cl((vh - r.top) / (vh * 0.85)));
+      box._c += (box._t - box._c) * 0.14;
+      box.style.setProperty('--pos', box._c.toFixed(2) + '%');
+      const nx = this.cards[i + 1];
+      if (nx && C.inner) {
+        const p = cl((vh - nx.el.getBoundingClientRect().top) / Math.max(1, vh - nx.st));
+        C.inner.style.transform = `scale(${(1 - 0.045 * p).toFixed(4)})`;
+        if (C.shade) C.shade.style.opacity = (p * 0.35).toFixed(3);
+      }
+    }
+
+    // frase palavra-a-palavra
+    if (this.wordsBox && this.words.length) {
+      const r = this.wordsBox.getBoundingClientRect();
+      const pr = R ? 1 : cl((vh * 0.9 - r.top) / (r.height + vh * 0.4));
+      const n = this.words.length;
+      this.words.forEach((w, i) => { w.style.opacity = (0.13 + 0.87 * cl(pr * n * 1.25 - i)).toFixed(3); });
+    }
+
+    // escultura 3D
+    if (this.sculptSec) {
+      const r = this.sculptSec.getBoundingClientRect();
+      const p = cl(-r.top / Math.max(1, r.height - vh));
+      if (this.sculpt) this.sculpt.progress = p;
+      const idx = Math.min(3, Math.floor(p * 4));
+      if (idx !== this._phase) {
+        this._phase = idx;
+        this.phases.forEach((ph, i) => { ph.style.opacity = i === idx ? '1' : '0'; ph.style.transform = i === idx ? 'translateY(0)' : `translateY(${i < idx ? -30 : 30}px)`; });
+        this.ticks.forEach((t, i) => { t.style.opacity = i === idx ? '1' : '.35'; const l = t.querySelector('[data-tick-line]'); if (l) l.style.transform = i === idx ? 'scaleX(1.6)' : 'scaleX(.4)'; });
+      }
+    }
+
+    // linha "como funciona"
+    if (this.lineTrack && this.lineFill) {
+      const r = this.lineTrack.getBoundingClientRect();
+      this.lineFill.style.transform = `scaleY(${cl((vh * 0.62 - r.top) / r.height).toFixed(4)})`;
+      for (const s of this.steps) if (s.dot) s.dot.style.background = s.el.getBoundingClientRect().top < vh * 0.62 ? '#5C3A40' : '#F5F2EE';
+    }
+
+    // filosofia — tracking sutil
+    if (this.track && !R) {
+      const r = this.track.getBoundingClientRect();
+      const p = cl(1 - (r.top + r.height / 2) / vh, -1, 1);
+      this.track.style.letterSpacing = `${(-0.02 + 0.012 * (1 - Math.abs(p))).toFixed(4)}em`;
+      this.track.style.transform = `translateX(${(p * -2).toFixed(2)}vw)`;
+    }
+
+    if (this.mbar) {
+      const ft = this.final ? this.final.getBoundingClientRect().top : 1e9;
+      const show = sy > vh * 0.85 && ft > vh * 0.75 && !this.state.menu;
+      if (show !== this._mb) { this._mb = show; this.mbar.style.transform = show ? 'translateY(0)' : 'translateY(160%)'; }
+    }
+  }
+
+  renderVals() {
+    const n = (this.props.whatsapp || '').replace(/\D/g, '');
+    const wa = n ? `https://wa.me/${n}?text=${encodeURIComponent('Olá, Dra. Vitória! Gostaria de agendar uma avaliação.')}` : '#agendar';
+    const show3d = this.props.show3d !== false;
+    return {
+      mobile: this.state.mobile, desktop: !this.state.mobile, menuOpen: this.state.menu,
+      openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
+      wa, waTarget: n ? '_blank' : '_self', ig: this.props.instagram || 'https://instagram.com/',
+      procs: this.procs, bas: this.bas, depos: this.depos,
+      show3d, no3d: !show3d,
+      showMbar: this.state.mobile && this.props.stickyMobileCta !== false
+    };
+  }
+}
+</script>
+</body>
+</html>
