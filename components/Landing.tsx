@@ -6,8 +6,16 @@ import { Fragment } from "react";
 import ImageSlot from "./ImageSlot";
 import { useLanding } from "./useLanding";
 
+// Estudo de forma — cartas empilhadas guiadas pelo scroll (textos do design original).
+const PRINCIPIOS = [
+  { n: "01", name: "Forma", sub_t: "Tudo começa pela estrutura de cada rosto.", bg: "#EDE5DE", fg: "#3B2A24", sub: "#6E5A52", num: "#5C3A40", line: "rgba(59,42,36,.14)", ghost: "rgba(92,58,64,.07)" },
+  { n: "02", name: "Proporção", sub_t: "Medidas que conversam entre si.", bg: "#E6D8CE", fg: "#3B2A24", sub: "#6E5A52", num: "#5C3A40", line: "rgba(59,42,36,.16)", ghost: "rgba(92,58,64,.08)" },
+  { n: "03", name: "Equilíbrio", sub_t: "Nenhum ponto se sobrepõe ao todo.", bg: "#D9C3B5", fg: "#3B2A24", sub: "#5E4B44", num: "#5C3A40", line: "rgba(59,42,36,.18)", ghost: "rgba(92,58,64,.09)" },
+  { n: "04", name: "Precisão", sub_t: "Técnica a serviço da naturalidade.", bg: "#5C3A40", fg: "#F5F2EE", sub: "#E6D6CB", num: "#D9C3B5", line: "rgba(245,242,238,.2)", ghost: "rgba(245,242,238,.07)" },
+];
+
 export default function Landing() {
-  const { bas, closeMenu, depos, ig, menuOpen, no3d, openMenu, procs, show3d, showMbar, wa, waTarget } = useLanding();
+  const { bas, closeMenu, depos, ig, menuOpen, openMenu, procs, showMbar, wa, waTarget } = useLanding();
   return (
     <>
       <div data-va-root="" style={{ fontFamily: "var(--font-jost),sans-serif", fontWeight: "300", background: "#F5F2EE", color: "#3B2A24", overflowX: "clip", position: "relative" }}>
@@ -431,22 +439,13 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        <section id="forma" data-sculpt="" data-screen-label="04 Estudo de forma 3D" style={{ position: "relative", height: "380vh", background: "#F5F2EE" }}>
-          <div style={{ position: "sticky", top: "0", height: "100vh", overflow: "hidden" }}>
-            <div style={{ position: "absolute", inset: "0", pointerEvents: "none" }}>
+        <section id="forma" data-forma="" data-screen-label="04 Estudo de forma" className="forma" style={{ position: "relative", height: "380vh", background: "#F5F2EE" }}>
+          <div className="forma-pin" style={{ position: "sticky", top: "0", height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+            <div aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none" }}>
               <div data-depth="-12" style={{ position: "absolute", left: "50%", top: "50%", width: "78vmin", height: "78vmin", margin: "-39vmin 0 0 -39vmin", border: "1px solid rgba(59,42,36,.08)", borderRadius: "50%" }} />
               <div data-depth="-6" style={{ position: "absolute", left: "50%", top: "50%", width: "112vmin", height: "112vmin", margin: "-56vmin 0 0 -56vmin", border: "1px solid rgba(59,42,36,.06)", borderRadius: "50%" }} />
-              <div style={{ position: "absolute", left: "50%", top: "0", bottom: "0", width: "1px", background: "rgba(59,42,36,.06)" }} />
             </div>
-            <div style={{ position: "absolute", inset: "0" }}>
-              {(show3d) && (<>
-                <va-sculpture data-sculpture="" style={{ display: "block", position: "absolute", inset: "0", width: "100%", height: "100%" }} />
-              </>)}
-              {(no3d) && (<>
-                <div style={{ position: "absolute", left: "50%", top: "50%", width: "min(52vmin,520px)", aspectRatio: "1", transform: "translate(-50%,-50%)", borderRadius: "50%", background: "radial-gradient(circle at 34% 30%,#F5F2EE 0%,#E6D6CB 38%,#D9C3B5 64%,#B79C8C 100%)" }} />
-              </>)}
-            </div>
-            <div style={{ position: "absolute", left: "clamp(20px,6vw,96px)", top: "clamp(96px,15vh,150px)", display: "flex", flexDirection: "column", gap: "14px", maxWidth: "300px", pointerEvents: "none" }}>
+            <div style={{ position: "relative", padding: "0 clamp(20px,6vw,96px)", display: "flex", flexDirection: "column", gap: "14px", maxWidth: "calc(300px + 2 * clamp(20px,6vw,96px))" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "18px", fontSize: "10px", letterSpacing: ".32em", fontWeight: "500" }}>
                 <span>
                   {"03"}
@@ -460,77 +459,46 @@ export default function Landing() {
                 {"Os quatro princípios por trás de cada plano de tratamento."}
               </p>
             </div>
-            <div style={{ position: "absolute", left: "clamp(20px,6vw,96px)", bottom: "clamp(48px,11vh,120px)", width: "min(560px,calc(100% - 40px))", height: "clamp(170px,24vh,240px)", pointerEvents: "none" }}>
-              <div data-phase="0" style={{ position: "absolute", left: "0", bottom: "0", display: "flex", flexDirection: "column", gap: "12px", opacity: "1", transition: "opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)" }}>
-                <span style={{ fontSize: "10px", letterSpacing: ".3em", fontWeight: "500", color: "#5C3A40" }}>
-                  {"01 / 04"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontSize: "clamp(64px,9vw,160px)", lineHeight: ".85", letterSpacing: "-.02em" }}>
-                  {"Forma"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(19px,1.5vw,24px)", color: "#6E5A52" }}>
-                  {"Tudo começa pela estrutura de cada rosto."}
-                </span>
-              </div>
-              <div data-phase="1" style={{ position: "absolute", left: "0", bottom: "0", display: "flex", flexDirection: "column", gap: "12px", opacity: "0", transform: "translateY(30px)", transition: "opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)" }}>
-                <span style={{ fontSize: "10px", letterSpacing: ".3em", fontWeight: "500", color: "#5C3A40" }}>
-                  {"02 / 04"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontSize: "clamp(64px,9vw,160px)", lineHeight: ".85", letterSpacing: "-.02em" }}>
-                  {"Proporção"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(19px,1.5vw,24px)", color: "#6E5A52" }}>
-                  {"Medidas que conversam entre si."}
-                </span>
-              </div>
-              <div data-phase="2" style={{ position: "absolute", left: "0", bottom: "0", display: "flex", flexDirection: "column", gap: "12px", opacity: "0", transform: "translateY(30px)", transition: "opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)" }}>
-                <span style={{ fontSize: "10px", letterSpacing: ".3em", fontWeight: "500", color: "#5C3A40" }}>
-                  {"03 / 04"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontSize: "clamp(64px,9vw,160px)", lineHeight: ".85", letterSpacing: "-.02em" }}>
-                  {"Equilíbrio"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(19px,1.5vw,24px)", color: "#6E5A52" }}>
-                  {"Nenhum ponto se sobrepõe ao todo."}
-                </span>
-              </div>
-              <div data-phase="3" style={{ position: "absolute", left: "0", bottom: "0", display: "flex", flexDirection: "column", gap: "12px", opacity: "0", transform: "translateY(30px)", transition: "opacity 1s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)" }}>
-                <span style={{ fontSize: "10px", letterSpacing: ".3em", fontWeight: "500", color: "#5C3A40" }}>
-                  {"04 / 04"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: "italic", fontSize: "clamp(64px,9vw,160px)", lineHeight: ".85", letterSpacing: "-.02em", color: "#5C3A40" }}>
-                  {"Precisão"}
-                </span>
-                <span style={{ fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(19px,1.5vw,24px)", color: "#6E5A52" }}>
-                  {"Técnica a serviço da naturalidade."}
-                </span>
-              </div>
+            <div className="forma-deck" style={{ position: "relative", flex: "1 1 auto", minHeight: "0", margin: "clamp(40px,7vh,72px) auto 0" }}>
+              {PRINCIPIOS.map((c, i) => (
+                <article key={c.n} data-forma-card="" style={{ position: "absolute", inset: "0", zIndex: i + 1, transformOrigin: "50% 0%", willChange: "transform", transform: i === 0 ? "none" : "translate3d(0,100vh,0)" }}>
+                  <div style={{ position: "absolute", inset: "0", overflow: "hidden", background: c.bg, color: c.fg, border: "1px solid rgba(59,42,36,.08)", boxShadow: "0 40px 80px -48px rgba(59,42,36,.45)", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "clamp(24px,4vw,56px)" }}>
+                    <div aria-hidden="true" style={{ position: "absolute", right: "clamp(-40px,-2vw,-12px)", bottom: "clamp(-30px,-3vw,-12px)", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: "italic", fontSize: "clamp(180px,30vw,420px)", lineHeight: ".8", letterSpacing: "-.05em", color: c.ghost, pointerEvents: "none", userSelect: "none" }}>
+                      {c.n}
+                    </div>
+                    <div aria-hidden="true" style={{ position: "absolute", right: "clamp(24px,4vw,56px)", top: "clamp(24px,4vw,56px)", width: "clamp(56px,9vw,120px)", aspectRatio: "1", border: `1px solid ${c.line}`, borderRadius: "50%" }}>
+                      <span style={{ position: "absolute", left: "50%", top: "-8px", bottom: "-8px", width: "1px", background: c.line }} />
+                      <span style={{ position: "absolute", top: "50%", left: "-8px", right: "-8px", height: "1px", background: c.line }} />
+                    </div>
+                    <div style={{ position: "relative", display: "flex", alignItems: "center", gap: "18px", fontSize: "10px", letterSpacing: ".3em", fontWeight: "500", color: c.num }}>
+                      <span>
+                        {c.n}{" / 04"}
+                      </span>
+                      <span style={{ display: "block", width: "clamp(32px,6vw,80px)", height: "1px", background: c.num, opacity: ".6" }} />
+                    </div>
+                    <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(12px,2vh,20px)" }}>
+                      <h3 style={{ margin: "0", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: i === 3 ? "italic" : "normal", fontSize: "clamp(56px,8.4vw,144px)", lineHeight: ".85", letterSpacing: "-.02em" }}>
+                        {c.name}
+                      </h3>
+                      <span style={{ display: "block", width: "48px", height: "1px", background: c.fg, opacity: ".35" }} />
+                      <p style={{ margin: "0", maxWidth: "34ch", fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(20px,1.7vw,26px)", lineHeight: "1.3", color: c.sub }}>
+                        {c.sub_t}
+                      </p>
+                    </div>
+                  </div>
+                  <div data-forma-shade="" aria-hidden="true" style={{ position: "absolute", inset: "0", background: "#3B2A24", opacity: "0", pointerEvents: "none" }} />
+                </article>
+              ))}
             </div>
-            <div style={{ position: "absolute", right: "clamp(20px,4vw,64px)", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: "18px", fontSize: "9px", letterSpacing: ".3em", fontWeight: "500" }}>
-              <div data-tick="0" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end", transition: "opacity .8s" }}>
-                <span>
-                  {"FORMA"}
-                </span>
-                <span data-tick-line="" style={{ display: "block", width: "28px", height: "1px", background: "#3B2A24", transformOrigin: "right", transition: "transform .8s cubic-bezier(.16,1,.3,1)" }} />
-              </div>
-              <div data-tick="1" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end", opacity: ".35", transition: "opacity .8s" }}>
-                <span>
-                  {"PROPORÇÃO"}
-                </span>
-                <span data-tick-line="" style={{ display: "block", width: "28px", height: "1px", background: "#3B2A24", transformOrigin: "right", transform: "scaleX(.4)", transition: "transform .8s cubic-bezier(.16,1,.3,1)" }} />
-              </div>
-              <div data-tick="2" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end", opacity: ".35", transition: "opacity .8s" }}>
-                <span>
-                  {"EQUILÍBRIO"}
-                </span>
-                <span data-tick-line="" style={{ display: "block", width: "28px", height: "1px", background: "#3B2A24", transformOrigin: "right", transform: "scaleX(.4)", transition: "transform .8s cubic-bezier(.16,1,.3,1)" }} />
-              </div>
-              <div data-tick="3" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end", opacity: ".35", transition: "opacity .8s" }}>
-                <span>
-                  {"PRECISÃO"}
-                </span>
-                <span data-tick-line="" style={{ display: "block", width: "28px", height: "1px", background: "#3B2A24", transformOrigin: "right", transform: "scaleX(.4)", transition: "transform .8s cubic-bezier(.16,1,.3,1)" }} />
-              </div>
+            <div className="only-desk forma-ticks" style={{ position: "absolute", right: "clamp(20px,4vw,64px)", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: "18px", fontSize: "9px", letterSpacing: ".3em", fontWeight: "500" }}>
+              {PRINCIPIOS.map((c, i) => (
+                <div key={c.n} data-tick="" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end", opacity: i === 0 ? "1" : ".35" }}>
+                  <span>
+                    {c.name.toUpperCase()}
+                  </span>
+                  <span data-tick-line="" style={{ display: "block", width: "28px", height: "1px", background: "#3B2A24", transformOrigin: "right", transform: i === 0 ? "scaleX(1.6)" : "scaleX(.4)" }} />
+                </div>
+              ))}
             </div>
           </div>
         </section>

@@ -29,3 +29,17 @@ a:hover { color: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
 }
+
+/* Estudo de forma — pilha de cartas fixada durante o scroll. */
+.forma-pin { padding: clamp(96px,15vh,150px) 0 108px; }
+.forma-deck { width: min(880px, calc(100% - 2 * clamp(20px,6vw,96px))); }
+@media (min-width: 1100px) {
+  .forma-pin { padding-bottom: clamp(40px,8vh,80px); }
+  .forma-deck { width: min(880px, calc(100% - 440px)); }
+}
+/* Movimento reduzido: as cartas ficam empilhadas uma abaixo da outra, sem animação. */
+.forma-static { height: auto !important; }
+.forma-static .forma-pin { position: relative !important; height: auto !important; overflow: visible !important; padding-bottom: clamp(80px,12vh,140px); }
+.forma-static .forma-deck { flex: none !important; display: flex; flex-direction: column; gap: 16px; }
+.forma-static [data-forma-card] { position: relative !important; inset: auto !important; transform: none !important; height: clamp(340px,56vh,520px); }
+.forma-static [data-forma-shade], .forma-static .forma-ticks { display: none !important; }

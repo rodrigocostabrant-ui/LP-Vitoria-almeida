@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Bodoni_Moda, Cormorant_Garamond, Jost } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { site, siteUrl } from "@/content/site";
@@ -39,7 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR" className={`${bodoni.variable} ${cormorant.variable} ${jost.variable}`}>
       <body>
         {children}
-        {site.escultura3d && <Script src="/va-sculpture.js" strategy="afterInteractive" />}
         <Analytics />
       </body>
     </html>

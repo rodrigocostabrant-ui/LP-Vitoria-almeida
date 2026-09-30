@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 
 // Comportamento portado do Claude Design: revelações, parallax com profundidade, ken burns,
-// pilhas de procedimentos e antes/depois, comparador arrastável, escultura 3D guiada pelo
-// scroll, linha da jornada, cursor personalizado e CTA fixo no mobile.
+// pilhas de procedimentos e antes/depois, comparador arrastável, cartas do estudo de forma
+// guiadas pelo scroll, linha da jornada, cursor personalizado e CTA fixo no mobile.
 export function useLanding() {
   const [menu, setMenu] = useState(false);
   const menuRef = useRef(false);
@@ -54,13 +54,14 @@ export function useLanding() {
     S.cards = q("[data-ba-card]").map((el) => ({ el, inner: el.querySelector("[data-ba-inner]"), shade: el.querySelector("[data-ba-shade]"), box: el.querySelector("[data-ba]"), st: parseFloat(getComputedStyle(el).top) || 0 }));
     S.cards.forEach((c: any) => initBA(c.box));
     S.words = q("[data-word]"); S.wordsBox = one("[data-words]");
-    S.sculptSec = one("[data-sculpt]"); S.sculpt = one("[data-sculpture]");
-    S.phases = q("[data-phase]"); S.ticks = q("[data-tick]");
+    S.forma = one("[data-forma]");
+    S.fcards = q("[data-forma-card]").map((el) => ({ el, shade: el.querySelector("[data-forma-shade]") }));
+    S.ticks = q("[data-tick]").map((el) => ({ el, line: el.querySelector("[data-tick-line]") }));
+    if (reduce && S.forma) S.forma.classList.add("forma-static");
     S.lineTrack = one("[data-line-track]"); S.lineFill = one("[data-line]");
     S.steps = q("[data-step]").map((el) => ({ el, dot: el.querySelector("[data-step-dot]") }));
     S.track = one("[data-track]");
     S.mbar = one("[data-mbar]"); S.final = one("#agendar");
-    S.phase = -1;
     const cue = one("[data-scrollcue]");
     if (cue && !reduce) cue.animate([{ transform: "translateY(-100%)" }, { transform: "translateY(100%)" }], { duration: 2400, iterations: Infinity, easing: "cubic-bezier(.65,0,.35,1)" });
 
@@ -190,16 +191,28 @@ export function useLanding() {
         S.words.forEach((w: any, i: number) => { w.style.opacity = (0.13 + 0.87 * cl(pr * n * 1.25 - i)).toFixed(3); });
       }
 
-      // escultura 3D
-      if (S.sculptSec) {
-        const r = S.sculptSec.getBoundingClientRect();
-        const p = cl(-r.top / Math.max(1, r.height - vh));
-        if (S.sculpt) S.sculpt.progress = p;
-        const idx = Math.min(3, Math.floor(p * 4));
-        if (idx !== S.phase) {
-          S.phase = idx;
-          S.phases.forEach((ph: any, i: number) => { ph.style.opacity = i === idx ? "1" : "0"; ph.style.transform = i === idx ? "translateY(0)" : `translateY(${i < idx ? -30 : 30}px)`; });
-          S.ticks.forEach((t: any, i: number) => { t.style.opacity = i === idx ? "1" : ".35"; const l = t.querySelector("[data-tick-line]"); if (l) l.style.transform = i === idx ? "scaleX(1.6)" : "scaleX(.4)"; });
+      // estudo de forma — cada carta sobe e cobre a anterior, que recua como num baralho
+      if (S.forma && !R && S.fcards.length) {
+        const r = S.forma.getBoundingClientRect();
+        if (r.bottom > -vh && r.top < vh * 2) {
+          const n = S.fcards.length;
+          const s = cl((-r.top / Math.max(1, r.height - vh) - 0.04) / 0.86) * (n - 1);
+          const io3 = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+          const ent = S.fcards.map((_: any, i: number) => (i === 0 ? 1 : io3(cl((s - (i - 1)) / 0.8))));
+          let dep = 0;
+          for (let i = n - 1; i >= 0; i--) {
+            const C = S.fcards[i], e = ent[i];
+            const y = (1 - e) * vh * 1.05 - dep * 16;
+            const rot = (1 - e) * (i % 2 ? 2.2 : -2.2);
+            C.el.style.transform = `translate3d(0,${y.toFixed(1)}px,0) scale(${(1 - 0.05 * dep).toFixed(4)}) rotate(${rot.toFixed(3)}deg)`;
+            if (C.shade) C.shade.style.opacity = Math.min(0.5, dep * 0.16).toFixed(3);
+            dep += e;
+          }
+          S.ticks.forEach((t: any, i: number) => {
+            const w = cl(1 - Math.abs(s - i));
+            t.el.style.opacity = (0.35 + 0.65 * w).toFixed(3);
+            if (t.line) t.line.style.transform = `scaleX(${(0.4 + 1.2 * w).toFixed(3)})`;
+          });
         }
       }
 
@@ -250,8 +263,6 @@ export function useLanding() {
     procs: site.procedimentos,
     bas: site.antesDepois,
     depos: site.depoimentos,
-    show3d: site.escultura3d,
-    no3d: !site.escultura3d,
     showMbar: site.ctaFixoMobile,
   };
 }

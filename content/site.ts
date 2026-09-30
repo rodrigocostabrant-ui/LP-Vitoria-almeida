@@ -19,7 +19,6 @@ export const site = {
   // "Completo" ou "Reduzido" (reduzido também é aplicado para quem pede menos movimento no sistema).
   movimento: "Completo" as "Completo" | "Reduzido",
   cursorPersonalizado: true,
-  escultura3d: true,
   ctaFixoMobile: true,
 
   procedimentos: [
