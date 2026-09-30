@@ -9,20 +9,20 @@ type Props = { id: string; placeholder?: string; shape?: string; style?: CSSProp
 const RAIO: Record<string, string> = { circle: "50%", pill: "999px", rounded: "12px" };
 
 export default function ImageSlot({ id, placeholder = "", shape = "rect", style }: Props) {
-  const src = imagens[id];
+  const imagem = imagens[id];
   return (
     <div
       data-slot={id}
       style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: RAIO[shape], ...style }}
     >
-      {src ? (
+      {imagem ? (
         <Image
-          src={src}
-          alt={placeholder}
+          src={imagem.src}
+          alt={imagem.alt}
           fill
           sizes="(max-width: 900px) 100vw, 50vw"
           priority={id === "hero-retrato"}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", objectPosition: imagem.position }}
         />
       ) : (
         <div className="slot-vazio" aria-hidden="true">
