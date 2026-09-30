@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import ImageSlot from "./ImageSlot";
 import { useLanding } from "./useLanding";
 
-// Estudo de forma — cartas empilhadas guiadas pelo scroll (textos do design original).
+// Estudo de forma — linha do tempo com cartas empilhadas na horizontal, guiada pelo scroll (textos do design original).
 const PRINCIPIOS = [
   { n: "01", name: "Forma", sub_t: "Tudo começa pela estrutura de cada rosto.", bg: "#EDE5DE", fg: "#3B2A24", sub: "#6E5A52", num: "#5C3A40", line: "rgba(59,42,36,.14)", ghost: "rgba(92,58,64,.07)" },
   { n: "02", name: "Proporção", sub_t: "Medidas que conversam entre si.", bg: "#E6D8CE", fg: "#3B2A24", sub: "#6E5A52", num: "#5C3A40", line: "rgba(59,42,36,.16)", ghost: "rgba(92,58,64,.08)" },
@@ -439,66 +439,89 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        <section id="forma" data-forma="" data-screen-label="04 Estudo de forma" className="forma" style={{ position: "relative", height: "380vh", background: "#F5F2EE" }}>
-          <div className="forma-pin" style={{ position: "sticky", top: "0", height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-            <div aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none" }}>
-              <div data-depth="-12" style={{ position: "absolute", left: "50%", top: "50%", width: "78vmin", height: "78vmin", margin: "-39vmin 0 0 -39vmin", border: "1px solid rgba(59,42,36,.08)", borderRadius: "50%" }} />
-              <div data-depth="-6" style={{ position: "absolute", left: "50%", top: "50%", width: "112vmin", height: "112vmin", margin: "-56vmin 0 0 -56vmin", border: "1px solid rgba(59,42,36,.06)", borderRadius: "50%" }} />
+        <section id="forma" data-forma="" data-screen-label="04 Estudo de forma" className="forma" style={{ position: "relative", height: "420vh", background: "#2E211C" }}>
+          <div className="forma-pin" style={{ position: "sticky", top: "0", height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column", color: "#F5F2EE" }}>
+            {/* Fundo animado: aura em tons de nude e vinho + diagrama de proporções faciais desenhado pelo scroll. */}
+            <div className="forma-bg" aria-hidden="true">
+              <div className="forma-aura forma-aura-1" />
+              <div className="forma-aura forma-aura-2" />
+              <div className="forma-aura forma-aura-3" />
+              <svg className="forma-guide" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" fill="none">
+                <g className="forma-guide-spin">
+                  <circle cx="800" cy="500" r="430" stroke="rgba(245,242,238,.07)" strokeWidth="1" />
+                  <circle cx="800" cy="500" r="430" stroke="rgba(217,195,181,.22)" strokeWidth="1" strokeDasharray="2 14" />
+                </g>
+                <circle data-forma-draw="" cx="800" cy="500" r="300" pathLength={1} stroke="rgba(217,195,181,.45)" strokeWidth="1" />
+                <ellipse data-forma-draw="" cx="800" cy="480" rx="190" ry="260" pathLength={1} stroke="rgba(245,242,238,.34)" strokeWidth="1" />
+                <path data-forma-draw="" d="M800 60 V940" pathLength={1} stroke="rgba(245,242,238,.16)" strokeWidth="1" />
+                <path data-forma-draw="" d="M540 393 H1060 M540 480 H1060 M540 567 H1060 M560 653 H1040" pathLength={1} stroke="rgba(245,242,238,.14)" strokeWidth="1" />
+                <path data-forma-draw="" d="M800 220 C 955 220 1030 345 1030 470 C 1030 568 962 640 868 640 C 790 640 736 586 736 516 C 736 460 778 420 830 420 C 872 420 900 450 900 488" pathLength={1} stroke="rgba(217,195,181,.62)" strokeWidth="1.3" />
+              </svg>
+              <div className="forma-grain" />
             </div>
-            <div style={{ position: "relative", padding: "0 clamp(20px,6vw,96px)", display: "flex", flexDirection: "column", gap: "14px", maxWidth: "calc(300px + 2 * clamp(20px,6vw,96px))" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "18px", fontSize: "10px", letterSpacing: ".32em", fontWeight: "500" }}>
-                <span>
-                  {"03"}
-                </span>
-                <span style={{ display: "block", width: "48px", height: "1px", background: "#3B2A24" }} />
-                <span>
-                  {"ESTUDO DE FORMA"}
-                </span>
+
+            <div style={{ position: "relative", padding: "0 clamp(20px,6vw,96px)", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: "14px 40px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "14px", maxWidth: "340px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "18px", fontSize: "10px", letterSpacing: ".32em", fontWeight: "500", color: "#D9C3B5" }}>
+                  <span>{"03"}</span>
+                  <span style={{ display: "block", width: "48px", height: "1px", background: "#D9C3B5" }} />
+                  <span>{"ESTUDO DE FORMA"}</span>
+                </div>
+                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.6", color: "rgba(245,242,238,.72)" }}>
+                  {"Os quatro princípios por trás de cada plano de tratamento."}
+                </p>
               </div>
-              <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.6", color: "#6E5A52" }}>
-                {"Os quatro princípios por trás de cada plano de tratamento."}
-              </p>
+              <div className="only-desk" style={{ display: "flex", alignItems: "baseline", gap: "10px", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", color: "#F5F2EE" }}>
+                <span data-forma-count="" style={{ fontSize: "44px", lineHeight: "1", fontStyle: "italic", fontVariantNumeric: "tabular-nums" }}>{"01"}</span>
+                <span style={{ fontSize: "20px", color: "rgba(245,242,238,.5)" }}>{"/ 04"}</span>
+              </div>
             </div>
-            <div className="forma-deck" style={{ position: "relative", flex: "1 1 auto", minHeight: "0", margin: "clamp(40px,7vh,72px) auto 0" }}>
+
+            <div className="forma-deck" style={{ position: "relative", flex: "1 1 auto", minHeight: "0" }}>
               {PRINCIPIOS.map((c, i) => (
-                <article key={c.n} data-forma-card="" style={{ position: "absolute", inset: "0", zIndex: i + 1, transformOrigin: "50% 0%", willChange: "transform", transform: i === 0 ? "none" : "translate3d(0,100vh,0)" }}>
-                  <div style={{ position: "absolute", inset: "0", overflow: "hidden", background: c.bg, color: c.fg, border: "1px solid rgba(59,42,36,.08)", boxShadow: "0 40px 80px -48px rgba(59,42,36,.45)", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "clamp(24px,4vw,56px)" }}>
-                    <div aria-hidden="true" style={{ position: "absolute", right: "clamp(-40px,-2vw,-12px)", bottom: "clamp(-30px,-3vw,-12px)", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: "italic", fontSize: "clamp(180px,30vw,420px)", lineHeight: ".8", letterSpacing: "-.05em", color: c.ghost, pointerEvents: "none", userSelect: "none" }}>
+                <article key={c.n} data-forma-card="" className="forma-card" style={{ zIndex: i + 1, transform: i === 0 ? "none" : "translate3d(120vw,0,0)" }}>
+                  <div style={{ position: "absolute", inset: "0", overflow: "hidden", background: c.bg, color: c.fg, border: "1px solid rgba(245,242,238,.14)", boxShadow: "-40px 0 80px -40px rgba(0,0,0,.55)", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "clamp(24px,3.4vw,52px)" }}>
+                    <div aria-hidden="true" style={{ position: "absolute", right: "clamp(-40px,-2vw,-12px)", bottom: "clamp(-30px,-3vw,-12px)", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: "italic", fontSize: "clamp(160px,24vw,360px)", lineHeight: ".8", letterSpacing: "-.05em", color: c.ghost, pointerEvents: "none", userSelect: "none" }}>
                       {c.n}
                     </div>
-                    <div aria-hidden="true" style={{ position: "absolute", right: "clamp(24px,4vw,56px)", top: "clamp(24px,4vw,56px)", width: "clamp(56px,9vw,120px)", aspectRatio: "1", border: `1px solid ${c.line}`, borderRadius: "50%" }}>
+                    <div aria-hidden="true" style={{ position: "absolute", right: "clamp(24px,3.4vw,52px)", top: "clamp(24px,3.4vw,52px)", width: "clamp(52px,7vw,100px)", aspectRatio: "1", border: `1px solid ${c.line}`, borderRadius: "50%" }}>
                       <span style={{ position: "absolute", left: "50%", top: "-8px", bottom: "-8px", width: "1px", background: c.line }} />
                       <span style={{ position: "absolute", top: "50%", left: "-8px", right: "-8px", height: "1px", background: c.line }} />
                     </div>
                     <div style={{ position: "relative", display: "flex", alignItems: "center", gap: "18px", fontSize: "10px", letterSpacing: ".3em", fontWeight: "500", color: c.num }}>
-                      <span>
-                        {c.n}{" / 04"}
-                      </span>
+                      <span>{c.n}{" / 04"}</span>
                       <span style={{ display: "block", width: "clamp(32px,6vw,80px)", height: "1px", background: c.num, opacity: ".6" }} />
                     </div>
                     <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(12px,2vh,20px)" }}>
-                      <h3 style={{ margin: "0", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: i === 3 ? "italic" : "normal", fontSize: "clamp(56px,8.4vw,144px)", lineHeight: ".85", letterSpacing: "-.02em" }}>
+                      <h3 style={{ margin: "0", fontFamily: "var(--font-cormorant),serif", fontWeight: "300", fontStyle: i === 3 ? "italic" : "normal", fontSize: "clamp(52px,7vw,124px)", lineHeight: ".85", letterSpacing: "-.02em" }}>
                         {c.name}
                       </h3>
                       <span style={{ display: "block", width: "48px", height: "1px", background: c.fg, opacity: ".35" }} />
-                      <p style={{ margin: "0", maxWidth: "34ch", fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(20px,1.7vw,26px)", lineHeight: "1.3", color: c.sub }}>
+                      <p style={{ margin: "0", maxWidth: "34ch", fontFamily: "var(--font-cormorant),serif", fontStyle: "italic", fontSize: "clamp(19px,1.6vw,25px)", lineHeight: "1.3", color: c.sub }}>
                         {c.sub_t}
                       </p>
                     </div>
                   </div>
-                  <div data-forma-shade="" aria-hidden="true" style={{ position: "absolute", inset: "0", background: "#3B2A24", opacity: "0", pointerEvents: "none" }} />
+                  <div data-forma-shade="" aria-hidden="true" style={{ position: "absolute", inset: "0", background: "#1E1512", opacity: "0", pointerEvents: "none" }} />
                 </article>
               ))}
             </div>
-            <div className="only-desk forma-ticks" style={{ position: "absolute", right: "clamp(20px,4vw,64px)", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: "18px", fontSize: "9px", letterSpacing: ".3em", fontWeight: "500" }}>
-              {PRINCIPIOS.map((c, i) => (
-                <div key={c.n} data-tick="" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end", opacity: i === 0 ? "1" : ".35" }}>
-                  <span>
-                    {c.name.toUpperCase()}
-                  </span>
-                  <span data-tick-line="" style={{ display: "block", width: "28px", height: "1px", background: "#3B2A24", transformOrigin: "right", transform: i === 0 ? "scaleX(1.6)" : "scaleX(.4)" }} />
-                </div>
-              ))}
+
+            {/* Linha do tempo: o traço preenche conforme as cartas passam. */}
+            <div className="forma-timeline" style={{ position: "relative", margin: "0 clamp(20px,6vw,96px)" }}>
+              <div style={{ position: "absolute", left: "0", right: "0", top: "5px", height: "1px", background: "rgba(245,242,238,.18)" }} />
+              <div data-forma-rail="" style={{ position: "absolute", left: "0", right: "0", top: "5px", height: "1px", background: "#D9C3B5", transformOrigin: "left", transform: "scaleX(0)" }} />
+              <ol style={{ position: "relative", listStyle: "none", margin: "0", padding: "0", display: "grid", gridTemplateColumns: "repeat(4,minmax(0,1fr))" }}>
+                {PRINCIPIOS.map((c, i) => (
+                  <li key={c.n} data-forma-node="" style={{ display: "flex", flexDirection: "column", gap: "14px", opacity: i === 0 ? "1" : ".4", transition: "opacity .6s cubic-bezier(.16,1,.3,1)" }}>
+                    <span data-forma-dot="" style={{ display: "block", width: "11px", height: "11px", borderRadius: "50%", border: "1px solid #D9C3B5", background: i === 0 ? "#D9C3B5" : "#2E211C", transition: "background .6s, transform .6s cubic-bezier(.16,1,.3,1)" }} />
+                    <span style={{ display: "flex", alignItems: "baseline", gap: "10px", fontSize: "9px", letterSpacing: ".3em", fontWeight: "500" }}>
+                      <span style={{ color: "#D9C3B5" }}>{c.n}</span>
+                      <span className="forma-node-name">{c.name.toUpperCase()}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
         </section>

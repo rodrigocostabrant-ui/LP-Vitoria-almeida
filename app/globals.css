@@ -30,16 +30,43 @@ a:hover { color: inherit; }
   *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
 }
 
-/* Estudo de forma — pilha de cartas fixada durante o scroll. */
-.forma-pin { padding: clamp(96px,15vh,150px) 0 108px; }
-.forma-deck { width: min(880px, calc(100% - 2 * clamp(20px,6vw,96px))); }
-@media (min-width: 1100px) {
-  .forma-pin { padding-bottom: clamp(40px,8vh,80px); }
-  .forma-deck { width: min(880px, calc(100% - 440px)); }
+/* Estudo de forma — linha do tempo horizontal fixada durante o scroll, sobre fundo animado. */
+.forma-pin { padding: clamp(96px,14vh,140px) 0 clamp(36px,6vh,64px); gap: clamp(24px,4vh,44px); }
+.forma-deck { width: 100%; }
+.forma-card {
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: min(820px, calc(100vw - 2 * clamp(20px,6vw,96px)));
+  transform-origin: 0% 50%; will-change: transform;
 }
-/* Movimento reduzido: as cartas ficam empilhadas uma abaixo da outra, sem animação. */
+@media (max-width: 1099.98px) { .forma-pin { padding-bottom: 104px; } }
+@media (max-width: 600px) { .forma-node-name { display: none; } }
+@media (max-width: 699.98px) { .forma-card { width: calc(100vw - 76px); } }
+
+.forma-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  background: radial-gradient(120% 90% at 20% 0%, #4A2F33 0%, #2E211C 55%, #241915 100%); }
+.forma-aura { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .9; will-change: transform; }
+.forma-aura-1 { width: 58vmax; height: 58vmax; left: -14vmax; top: -18vmax;
+  background: radial-gradient(circle, rgba(217,195,181,.30), rgba(217,195,181,0) 65%); animation: forma-drift-1 26s ease-in-out infinite alternate; }
+.forma-aura-2 { width: 64vmax; height: 64vmax; right: -20vmax; bottom: -26vmax;
+  background: radial-gradient(circle, rgba(140,78,88,.55), rgba(92,58,64,0) 65%); animation: forma-drift-2 32s ease-in-out infinite alternate; }
+.forma-aura-3 { width: 36vmax; height: 36vmax; left: 38%; top: 30%;
+  background: radial-gradient(circle, rgba(245,242,238,.12), rgba(245,242,238,0) 65%); animation: forma-drift-3 22s ease-in-out infinite alternate; }
+@keyframes forma-drift-1 { to { transform: translate3d(18vw, 12vh, 0) scale(1.15); } }
+@keyframes forma-drift-2 { to { transform: translate3d(-22vw, -14vh, 0) scale(.9); } }
+@keyframes forma-drift-3 { 0% { transform: translate3d(-10vw, 6vh, 0) scale(.9); } 100% { transform: translate3d(12vw, -8vh, 0) scale(1.2); } }
+.forma-guide { position: absolute; inset: 0; width: 100%; height: 100%; }
+.forma-guide [data-forma-draw] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.forma-guide-spin { transform-origin: 800px 500px; animation: forma-spin 90s linear infinite; }
+@keyframes forma-spin { to { transform: rotate(360deg); } }
+.forma-grain { position: absolute; inset: -50%; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%272%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E");
+  animation: forma-grain 1.2s steps(4) infinite; }
+@keyframes forma-grain { 0% { transform: translate(0,0); } 25% { transform: translate(-3%,2%); } 50% { transform: translate(2%,-3%); } 75% { transform: translate(-2%,-1%); } 100% { transform: translate(0,0); } }
+
+/* Movimento reduzido: cartas lado a lado com rolagem horizontal, sem fixação nem animação. */
 .forma-static { height: auto !important; }
-.forma-static .forma-pin { position: relative !important; height: auto !important; overflow: visible !important; padding-bottom: clamp(80px,12vh,140px); }
-.forma-static .forma-deck { flex: none !important; display: flex; flex-direction: column; gap: 16px; }
-.forma-static [data-forma-card] { position: relative !important; inset: auto !important; transform: none !important; height: clamp(340px,56vh,520px); }
-.forma-static [data-forma-shade], .forma-static .forma-ticks { display: none !important; }
+.forma-static .forma-pin { position: relative !important; height: auto !important; overflow: hidden !important; }
+.forma-static .forma-deck { display: flex; gap: 16px; overflow-x: auto; padding: 0 clamp(20px,6vw,96px); scroll-snap-type: x mandatory; }
+.forma-static .forma-card { position: relative !important; flex: none; transform: none !important; height: clamp(340px,56vh,480px); scroll-snap-align: start; }
+.forma-static [data-forma-shade], .forma-static .forma-timeline, .forma-static .forma-aura, .forma-static .forma-grain { display: none !important; }
+.forma-static .forma-guide [data-forma-draw] { stroke-dashoffset: 0; }

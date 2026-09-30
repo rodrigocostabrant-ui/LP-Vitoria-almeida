@@ -56,7 +56,9 @@ export function useLanding() {
     S.words = q("[data-word]"); S.wordsBox = one("[data-words]");
     S.forma = one("[data-forma]");
     S.fcards = q("[data-forma-card]").map((el) => ({ el, shade: el.querySelector("[data-forma-shade]") }));
-    S.ticks = q("[data-tick]").map((el) => ({ el, line: el.querySelector("[data-tick-line]") }));
+    S.fnodes = q("[data-forma-node]").map((el) => ({ el, dot: el.querySelector("[data-forma-dot]") }));
+    S.frail = one("[data-forma-rail]"); S.fcount = one("[data-forma-count]");
+    S.fdraw = q("[data-forma-draw]"); S.factive = -1;
     if (reduce && S.forma) S.forma.classList.add("forma-static");
     S.lineTrack = one("[data-line-track]"); S.lineFill = one("[data-line]");
     S.steps = q("[data-step]").map((el) => ({ el, dot: el.querySelector("[data-step-dot]") }));
@@ -191,28 +193,38 @@ export function useLanding() {
         S.words.forEach((w: any, i: number) => { w.style.opacity = (0.13 + 0.87 * cl(pr * n * 1.25 - i)).toFixed(3); });
       }
 
-      // estudo de forma — cada carta sobe e cobre a anterior, que recua como num baralho
+      // estudo de forma — linha do tempo: cada carta entra pela direita e cobre a anterior,
+      // que recua para a esquerda como num baralho; o traço da linha e o diagrama do fundo acompanham.
       if (S.forma && !R && S.fcards.length) {
         const r = S.forma.getBoundingClientRect();
         if (r.bottom > -vh && r.top < vh * 2) {
-          const n = S.fcards.length;
-          const s = cl((-r.top / Math.max(1, r.height - vh) - 0.04) / 0.86) * (n - 1);
+          const vw = innerWidth, n = S.fcards.length;
+          const prog = cl(-r.top / Math.max(1, r.height - vh));
+          const s = cl((prog - 0.05) / 0.85) * (n - 1);
           const io3 = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-          const ent = S.fcards.map((_: any, i: number) => (i === 0 ? 1 : io3(cl((s - (i - 1)) / 0.8))));
+          const w = S.fcards[0].el.offsetWidth;
+          const step = vw < 700 ? 12 : 34;
+          const base = (vw - w) / 2 + (n - 1) * step * 0.5;
           let dep = 0;
           for (let i = n - 1; i >= 0; i--) {
-            const C = S.fcards[i], e = ent[i];
-            const y = (1 - e) * vh * 1.05 - dep * 16;
-            const rot = (1 - e) * (i % 2 ? 2.2 : -2.2);
-            C.el.style.transform = `translate3d(0,${y.toFixed(1)}px,0) scale(${(1 - 0.05 * dep).toFixed(4)}) rotate(${rot.toFixed(3)}deg)`;
-            if (C.shade) C.shade.style.opacity = Math.min(0.5, dep * 0.16).toFixed(3);
+            const C = S.fcards[i];
+            const e = i === 0 ? 1 : io3(cl((s - (i - 1)) / 0.85));
+            const x = base + (1 - e) * (vw - base + 80) - dep * step;
+            C.el.style.transform = `translate3d(${x.toFixed(1)}px,0,0) scale(${(1 - 0.045 * dep).toFixed(4)}) rotate(${((1 - e) * 3).toFixed(3)}deg)`;
+            if (C.shade) C.shade.style.opacity = Math.min(0.55, dep * 0.18).toFixed(3);
             dep += e;
           }
-          S.ticks.forEach((t: any, i: number) => {
-            const w = cl(1 - Math.abs(s - i));
-            t.el.style.opacity = (0.35 + 0.65 * w).toFixed(3);
-            if (t.line) t.line.style.transform = `scaleX(${(0.4 + 1.2 * w).toFixed(3)})`;
-          });
+          if (S.frail) S.frail.style.transform = `scaleX(${(s / (n - 1)).toFixed(4)})`;
+          for (const d of S.fdraw) d.style.strokeDashoffset = (1 - cl(prog * 1.25)).toFixed(4);
+          const idx = Math.min(n - 1, Math.round(s));
+          if (idx !== S.factive) {
+            S.factive = idx;
+            S.fnodes.forEach((o: any, i: number) => {
+              o.el.style.opacity = i <= idx ? "1" : ".4";
+              if (o.dot) { o.dot.style.background = i <= idx ? "#D9C3B5" : "#2E211C"; o.dot.style.transform = i === idx ? "scale(1.5)" : "scale(1)"; }
+            });
+            if (S.fcount) S.fcount.textContent = String(idx + 1).padStart(2, "0");
+          }
         }
       }
 
