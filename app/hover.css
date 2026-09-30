@@ -1,0 +1,19 @@
+/* Estados de hover do design (style-hover no Claude Design). */
+.hv1:hover{background-size:100% 1px !important}
+.hv2:hover{background-size:100% 1px !important}
+.hv3:hover{background-size:100% 1px !important}
+.hv4:hover{background-size:100% 1px !important}
+.hv5:hover{background:#3B2A24 !important;color:#F5F2EE !important;letter-spacing:.3em !important}
+.hv6:hover{background:#5C3A40 !important;color:#F5F2EE !important;letter-spacing:.32em !important;gap:26px !important}
+.hv7:hover{background-size:35% 1px !important}
+.hv8:hover{padding-left:12px !important;color:#5C3A40 !important}
+.hv9:hover{transform:scale(1.1) !important}
+.hv10:hover{background:#5C3A40 !important;color:#F5F2EE !important;letter-spacing:.32em !important;gap:26px !important}
+.hv11:hover{background-size:30% 1px !important;gap:22px !important}
+.hv12:hover{background:#3B2A24 !important;color:#F5F2EE !important;letter-spacing:.32em !important}
+.hv13:hover{transform:scale(.97) !important}
+.hv14:hover{transform:scale(.97) !important}
+.hv15:hover{transform:scale(.97) !important}
+.hv16:hover{background:#F5F2EE !important;color:#3B2A24 !important;letter-spacing:.34em !important;gap:30px !important}
+.hv17:hover{background-size:100% 1px !important}
+.hv18:hover{background-size:100% 1px !important}

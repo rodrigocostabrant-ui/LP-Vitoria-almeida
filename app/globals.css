@@ -1,0 +1,31 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #F5F2EE; color: #3B2A24; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: inherit; }
+::selection { background: #D9C3B5; color: #3B2A24; }
+:focus-visible { outline: 1px solid #5C3A40; outline-offset: 4px; }
+
+/* O design troca hero, menu e CTA fixo em 1100px. */
+@media (min-width: 1100px) { .only-mob, [data-mbar] { display: none !important; } }
+@media (max-width: 1099.98px) { .only-desk { display: none !important; } }
+
+/* Cursor personalizado (desktop). */
+.va-nocursor, .va-nocursor * { cursor: none !important; }
+
+/* Espaço reservado para foto ainda não enviada. */
+.slot-vazio {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; padding: 16px; text-align: center; border: 1px dashed rgba(0,0,0,.18);
+}
+.slot-vazio::before {
+  content: ""; width: 30px; height: 30px; opacity: .45; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.5%27%3E%3Crect x=%273%27 y=%273%27 width=%2718%27 height=%2718%27 rx=%272%27/%3E%3Ccircle cx=%279%27 cy=%279%27 r=%272%27/%3E%3Cpath d=%27m21 15-5-5L5 21%27/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%271.5%27%3E%3Crect x=%273%27 y=%273%27 width=%2718%27 height=%2718%27 rx=%272%27/%3E%3Ccircle cx=%279%27 cy=%279%27 r=%272%27/%3E%3Cpath d=%27m21 15-5-5L5 21%27/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.slot-vazio span { max-width: 36ch; font: 500 12px/1.45 system-ui, sans-serif; opacity: .7; }
+[data-slot][style*="border-radius: 50%"] .slot-vazio span { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+}
